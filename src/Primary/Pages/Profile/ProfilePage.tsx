@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
+import ProfileHeader from "./ProfileHeader";
+import GeneralInformationForm from "./GeneralInformationForm";
+import PasswordForm from "./PasswordForm";
 import {Box} from "@mui/material";
 
 const ProfilePage = () => {
+
     return (
         <Box>
-            Profile page
+            <ProfileHeader/>
+            <GeneralInformationForm/>
+            <PasswordForm/>
         </Box>
     );
 };

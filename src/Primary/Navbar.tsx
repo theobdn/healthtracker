@@ -68,7 +68,7 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
     }
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{height: "9vh"}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <img src="./logo.png" style={{width: "50px", height: "50px"}}/>
@@ -79,7 +79,7 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
                         href="/"
                         sx={{
                             mr: 2,
-                            display: { xs: 'none', md: 'flex' },
+                            display: {xs: 'none', md: 'flex'},
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
@@ -90,7 +90,7 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
                         HEALTH TRACKER
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -99,7 +99,7 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
                             onClick={handleOpenNavMenu}
                             color="inherit"
                         >
-                            <MenuIcon />
+                            <MenuIcon/>
                         </IconButton>
 
                         {/********************************RESPONSIVE MENU LINKS*********************************/}
@@ -118,18 +118,18 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
                             sx={{
-                                display: { xs: 'block', md: 'none' },
+                                display: {xs: 'block', md: 'none'},
                             }}
                         >
-                                <MenuItem onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">Mon journal</Typography>
-                                </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">Mon journal</Typography>
+                            </MenuItem>
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">Stats</Typography>
                             </MenuItem>
                         </Menu>
                     </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                    <AdbIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
                     <Typography
                         variant="h5"
                         noWrap
@@ -137,7 +137,7 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
                         href=""
                         sx={{
                             mr: 2,
-                            display: { xs: 'flex', md: 'none' },
+                            display: {xs: 'flex', md: 'none'},
                             flexGrow: 1,
                             fontFamily: 'monospace',
                             fontWeight: 700,
@@ -150,24 +150,24 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
                     </Typography>
 
                     {/********************************DEFAULT MENU LINKS*********************************/}
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         <Button
                             onClick={() => handleNavigation("journal")}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            sx={{my: 2, color: 'white', display: 'block'}}
                         >
                             Mon journal
                         </Button>
                         <Button
                             onClick={() => handleNavigation("stats")}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            sx={{my: 2, color: 'white', display: 'block'}}
                         >
                             Statistiques
                         </Button>
                     </Box>
 
-                    <Box sx={{ flexGrow: 0, display: "flex" }}>
+                    <Box sx={{flexGrow: 0, display: "flex"}}>
                         <Tooltip title="Change theme">
-                            <IconButton onClick={handleThemeChange} sx={{ p: 0, marginRight: "15px" }}>
+                            <IconButton onClick={handleThemeChange} sx={{p: 0, marginRight: "15px"}}>
                                 {isLightTheme ? <DarkModeIcon/> : <LightModeIcon/>}
                             </IconButton>
                         </Tooltip>
@@ -175,12 +175,12 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
 
                         {/********************************AVATAR MENU*********************************/}
                         <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, marginLeft: "15px" }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                            <IconButton onClick={handleOpenUserMenu} sx={{p: 0, marginLeft: "15px"}}>
+                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
                             </IconButton>
                         </Tooltip>
                         <Menu
-                            sx={{ mt: '45px' }}
+                            sx={{mt: '45px'}}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
                             anchorOrigin={{
@@ -199,10 +199,10 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
                                 <Typography textAlign="center">Mon profil</Typography>
                             </MenuItem>
                             <MenuItem onClick={() => handleNavigation("settings")}>
-                            <Typography textAlign="center">Paramètres</Typography>
+                                <Typography textAlign="center">Paramètres</Typography>
                             </MenuItem>
                             <MenuItem onClick={() => handleNavigation("logout")}>
-                            <Typography textAlign="center">Déconnexion</Typography>
+                                <Typography textAlign="center">Déconnexion</Typography>
                             </MenuItem>
                         </Menu>
                     </Box>

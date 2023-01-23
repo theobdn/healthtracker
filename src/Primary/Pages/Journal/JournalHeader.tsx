@@ -1,10 +1,13 @@
 import React from 'react';
-import {Box} from "@mui/material";
+import {Box, Typography} from "@mui/material";
+import {profilesData} from "../../../Secondary/InMemory/data";
 
 const JournalHeader = () => {
     return (
-        <Box>
-            Journal header
+        <Box sx={{display: "flex", alignItems: "center", paddingLeft: "15px", height: "6vh"}}>
+            <Typography variant="h4">Ajout d'un repas : </Typography>
+            <Typography variant="h4" color="secondary" marginLeft="5px">{profilesData[0].name}</Typography>
+            <Typography variant="h4" color="secondary" marginLeft="5px">{profilesData[0].firstName}</Typography>
         </Box>
     );
 };

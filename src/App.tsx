@@ -9,6 +9,9 @@ import JournalPage from "./Primary/Pages/Journal/JournalPage";
 import StatsPage from "./Primary/Pages/Stats/StatsPage";
 import ProfilePage from "./Primary/Pages/Profile/ProfilePage";
 import SettingsPage from "./Primary/Pages/Settings/SettingsPage";
+import {Login} from "@mui/icons-material";
+import RegisterPage from "./Primary/Pages/Register/RegisterPage";
+import LoginPage from "./Primary/Pages/Login/LoginPage";
 
 const darkTheme = createTheme({
     palette: {
@@ -76,25 +79,51 @@ function App() {
         isLightTheme ? setIsLightTheme(false) : setIsLightTheme(true)
     }
 
-  return (
-      <>
-          <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
-              <CssBaseline>
-                  <BrowserRouter>
-                      <ResponsiveAppBar onThemeChange={setTheme}/>
-                      <Routes>
-                          <Route path="/" element={<Home/>}></Route>
-                          <Route path="/journal" element={<JournalPage/>}></Route>
-                          <Route path="/stats" element={<StatsPage/>}></Route>
-                          <Route path="/profile" element={<ProfilePage/>}></Route>
-                          <Route path="/settings" element={<SettingsPage/>}></Route>
-                          <Route path="/*" element={<NotFound/>}></Route>
-                      </Routes>
-                  </BrowserRouter>
-              </CssBaseline>
-          </ThemeProvider>
-      </>
-  );
+    return (
+        <>
+            <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
+                <CssBaseline>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/" element={(
+                                <>
+                                    <ResponsiveAppBar onThemeChange={setTheme}/>
+                                    <Home/>
+                                </>
+                            )}></Route>
+                            <Route path="/journal" element={(
+                                <>
+                                    <ResponsiveAppBar onThemeChange={setTheme}/>
+                                    <JournalPage/>
+                                </>
+                            )}></Route>
+                            <Route path="/stats" element={(
+                                <>
+                                    <ResponsiveAppBar onThemeChange={setTheme}/>
+                                    <StatsPage/>
+                                </>
+                            )}></Route>
+                            <Route path="/profile" element={(
+                                <>
+                                    <ResponsiveAppBar onThemeChange={setTheme}/>
+                                    <ProfilePage/>
+                                </>
+                            )}></Route>
+                            <Route path="/settings" element={(
+                                <>
+                                    <ResponsiveAppBar onThemeChange={setTheme}/>
+                                    <ProfilePage/>
+                                </>
+                            )}></Route>
+                            <Route path="/login" element={<LoginPage/>}></Route>
+                            <Route path="/register" element={<RegisterPage/>}></Route>
+                            <Route path="/*" element={<NotFound/>}></Route>
+                        </Routes>
+                    </BrowserRouter>
+                </CssBaseline>
+            </ThemeProvider>
+        </>
+    );
 }
 
 export default App;

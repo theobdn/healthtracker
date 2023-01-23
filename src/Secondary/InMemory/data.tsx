@@ -1,8 +1,10 @@
 import {User} from "../../Corelogic/Models/user";
 import {foodPreferenceData, sexeData} from "./parameters";
 import {Profile} from "../../Corelogic/Models/Profile";
+import {Aliment} from "../../Corelogic/Models/aliment";
+import {Parameter} from "../../Corelogic/Models/parameter";
 
-export const usersData:User[] = [
+export const usersData: User[] = [
     {
         id: 1,
         email: "user1@gmail.com",
@@ -15,7 +17,7 @@ export const usersData:User[] = [
     }
 ]
 
-export const profilesData:Profile[] = [
+export const profilesData: Profile[] = [
     {
         id: 1,
         name: "Doe",
@@ -51,37 +53,66 @@ export const profilesData:Profile[] = [
     }
 ]
 
-export const mealsData = [
+export const alimentsFamilyData: Parameter[] = [
     {
         id: 1,
-        name: "Meal morning"
+        label: "Family 1",
+        code: "FAM1"
     },
     {
         id: 2,
-        name: "Meal 12am"
+        label: "Family 2",
+        code: "FAM2"
     },
     {
         id: 3,
-        name: "Meal night"
+        label: "Family 3",
+        code: "FAM3"
     }
 ]
 
-export const alimentsData = [
+
+export const alimentsData: Aliment[] = [
     {
         id: 1,
-        name: "Banana",
-        weight: 200,
+        label: "Banana",
+        weight: 400,
         caloriesPerWeight: 350,
-        quantity: 1,
-        family: "Family 1"
+        family: alimentsFamilyData[0]
     },
     {
         id: 2,
-        name: "Apple"
+        label: "Apple",
+        weight: 350,
+        caloriesPerWeight: 300,
+        family: alimentsFamilyData[1]
     },
     {
         id: 3,
-        name: "Peach"
+        label: "Peach",
+        weight: 200,
+        caloriesPerWeight: 250,
+        family: alimentsFamilyData[2]
+    }, {
+        id: 4,
+        label: "Cake",
+        weight: 400,
+        caloriesPerWeight: 350,
+        family: alimentsFamilyData[0]
+    },
+    {
+        id: 5,
+        label: "Chips",
+        weight: 350,
+        caloriesPerWeight: 300,
+        family: alimentsFamilyData[1]
+    },
+    {
+        id: 6,
+        label: "Pizza",
+        weight: 200,
+        caloriesPerWeight: 250,
+        family: alimentsFamilyData[2]
     }
 ]
 
@@ -156,21 +187,21 @@ export const dataNutrimentsGraph = [
 ];
 
 export const data01 = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
-    { name: 'Group E', value: 278 },
-    { name: 'Group F', value: 189 },
+    {name: 'Group A', value: 400},
+    {name: 'Group B', value: 300},
+    {name: 'Group C', value: 300},
+    {name: 'Group D', value: 200},
+    {name: 'Group E', value: 278},
+    {name: 'Group F', value: 189},
 ];
 
 export const data02 = [
-    { name: 'Group A', value: 2400 },
-    { name: 'Group B', value: 4567 },
-    { name: 'Group C', value: 1398 },
-    { name: 'Group D', value: 9800 },
-    { name: 'Group E', value: 3908 },
-    { name: 'Group F', value: 4800 },
+    {name: 'Group A', value: 2400},
+    {name: 'Group B', value: 4567},
+    {name: 'Group C', value: 1398},
+    {name: 'Group D', value: 9800},
+    {name: 'Group E', value: 3908},
+    {name: 'Group F', value: 4800},
 ];
 
 export const data = [
