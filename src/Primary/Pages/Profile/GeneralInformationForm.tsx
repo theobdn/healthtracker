@@ -15,7 +15,7 @@ import * as yup from "yup";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import InfoIcon from '@mui/icons-material/Info';
-import {sexeData} from "../../../Secondary/InMemory/parameters";
+import {sexeData} from "../../../Secondary/InMemory/data";
 
 type InputsProfilePage = {
     firstName: string
@@ -165,9 +165,9 @@ const GeneralInformationForm = () => {
                                         error={!!errors.sex}
                                         helperText={errors.sex?.message}
                                     >
-                                        {sexeData.map((option) => (
-                                            <MenuItem key={option.id} value={option.id}>
-                                                {option.label}
+                                        {sexeData.map((sexe) => (
+                                            <MenuItem key={sexe.id} value={sexe.id}>
+                                                {sexe.label}
                                             </MenuItem>
                                         ))}
                                     </TextField>}

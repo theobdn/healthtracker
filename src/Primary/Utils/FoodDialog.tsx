@@ -24,7 +24,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import SearchBar from "./SearchBar";
 import {useEffect, useState} from "react";
 import {Delete} from "@mui/icons-material";
-import {Aliment} from "../../Corelogic/Models/aliment";
+import {Aliment} from "../../Corelogic/Models/Aliment";
 
 interface TabPanelProps {
     children?: React.ReactNode;

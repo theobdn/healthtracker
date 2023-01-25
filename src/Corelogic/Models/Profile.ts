@@ -1,4 +1,4 @@
-import {Parameter} from "./parameter";
+import {Parameter} from "./Parameter";
 
 export interface Sexe extends Parameter {
 }

@@ -17,6 +17,7 @@ import {Divider} from "@mui/material";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import {Image} from "@mui/icons-material";
+import PersonIcon from '@mui/icons-material/Person';
 import {useNavigate} from "react-router-dom";
 
 interface ResponsiveAppBarInterface {
@@ -176,7 +177,9 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
                         {/********************************AVATAR MENU*********************************/}
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0, marginLeft: "15px"}}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+                                <Avatar alt="Remy Sharp">
+                                    <PersonIcon/>
+                                </Avatar>
                             </IconButton>
                         </Tooltip>
                         <Menu

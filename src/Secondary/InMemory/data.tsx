@@ -1,19 +1,57 @@
-import {User} from "../../Corelogic/Models/user";
-import {foodPreferenceData, sexeData} from "./parameters";
-import {Profile} from "../../Corelogic/Models/Profile";
-import {Aliment} from "../../Corelogic/Models/aliment";
-import {Parameter} from "../../Corelogic/Models/parameter";
+import {User} from "../../Corelogic/Models/User";
+import {FoodPreference, Profile, Sexe} from "../../Corelogic/Models/Profile";
+import {Aliment, MealType} from "../../Corelogic/Models/Aliment";
+import {Parameter} from "../../Corelogic/Models/Parameter";
 
+/** USER & PROFILE **/
 export const usersData: User[] = [
     {
         id: 1,
         email: "user1@gmail.com",
-        password: "test"
+        password: "test",
+        profileId: 1
     },
     {
         id: 2,
         email: "user2@gmail.com",
-        password: "test"
+        password: "test",
+        profileId: 2
+    }
+]
+
+export const sexeData: Sexe[] = [
+    {
+        "id": 1,
+        "code": "SEX1",
+        "label": "Male"
+    },
+    {
+        "id": 2,
+        "code": "SEX2",
+        "label": "Female"
+    },
+    {
+        "id": 3,
+        "code": "SEX3",
+        "label": "Transgenre"
+    }
+]
+
+export const foodPreferenceData: FoodPreference[] = [
+    {
+        "id": 1,
+        "code": "FP1",
+        "label": "Carnivore"
+    },
+    {
+        "id": 2,
+        "code": "FP2",
+        "label": "Vegan"
+    },
+    {
+        "id": 3,
+        "code": "FP3",
+        "label": "Cetogene"
     }
 ]
 
@@ -53,6 +91,7 @@ export const profilesData: Profile[] = [
     }
 ]
 
+/** FOOD **/
 export const alimentsFamilyData: Parameter[] = [
     {
         id: 1,
@@ -71,6 +110,28 @@ export const alimentsFamilyData: Parameter[] = [
     }
 ]
 
+export const mealType: MealType[] = [
+    {
+        id: 1,
+        code: "MT1",
+        label: "Breakfast"
+    },
+    {
+        id: 2,
+        code: "MT2",
+        label: "Lunch"
+    },
+    {
+        id: 3,
+        code: "MT3",
+        label: "Diner"
+    },
+    {
+        id: 4,
+        code: "MT4",
+        label: "Snack"
+    }
+]
 
 export const alimentsData: Aliment[] = [
     {
@@ -115,6 +176,8 @@ export const alimentsData: Aliment[] = [
         family: alimentsFamilyData[2]
     }
 ]
+
+/** STATS & GRAPHS **/
 
 export const dataWeightGraph = [
     {
@@ -184,7 +247,7 @@ export const dataNutrimentsGraph = [
         B: 85,
         fullMark: 150,
     },
-];
+]
 
 export const data01 = [
     {name: 'Group A', value: 400},
@@ -193,7 +256,7 @@ export const data01 = [
     {name: 'Group D', value: 200},
     {name: 'Group E', value: 278},
     {name: 'Group F', value: 189},
-];
+]
 
 export const data02 = [
     {name: 'Group A', value: 2400},
@@ -202,7 +265,7 @@ export const data02 = [
     {name: 'Group D', value: 9800},
     {name: 'Group E', value: 3908},
     {name: 'Group F', value: 4800},
-];
+]
 
 export const data = [
     {
@@ -247,22 +310,4 @@ export const data = [
         pv: 4300,
         amt: 2100,
     },
-];
-
-export const dataLangague = [
-    {
-        id: 1,
-        code: "FRA",
-        label: "Français"
-    },
-    {
-        id: 2,
-        code: "ESP",
-        label: "Espagnol"
-    },
-    {
-        id: 3,
-        code: "EST",
-        label: "Estonien"
-    }
 ]

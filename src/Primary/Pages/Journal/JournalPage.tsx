@@ -8,13 +8,6 @@ import {
     Stepper,
     Typography
 } from "@mui/material";
-import {Parameter} from "../../../Corelogic/Models/parameter";
-import * as yup from "yup";
-import BakeryDiningIcon from '@mui/icons-material/BakeryDining';
-import FastfoodIcon from '@mui/icons-material/Fastfood';
-import RamenDiningIcon from '@mui/icons-material/RamenDining';
-import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import MaxWidthDialog from "../../Utils/FoodDialog";
 import MealPicker from "./MealPicker";
 import JournalHeader from "./JournalHeader";
@@ -24,7 +17,6 @@ const JournalPage = () => {
     const [activeStep, setActiveStep] = useState(0)
     const [skipped, setSkipped] = useState(new Set<number>())
     const [mealId, setMealId] = useState<number | undefined>(undefined)
-    const [openFoodDialogState, setOpenFoodDialogState] = useState(false)
 
     const isStepSkipped = (step: number) => {
         return skipped.has(step);
@@ -43,10 +35,6 @@ const JournalPage = () => {
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1)
-    }
-
-    const handleResetStepper = () => {
-        setActiveStep(0)
     }
 
     const handleGetMealPick = (mealId: number) => {

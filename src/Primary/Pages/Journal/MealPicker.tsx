@@ -44,6 +44,7 @@ const MealPicker = (props: MealPickerInterface) => {
                                  width: "100%",
                                  height: "100%",
                                  backgroundSize: "cover",
+                                 objectFit: "cover",
                                  borderRadius: "10px"
                              }}/>
                         <Typography variant="h3" color="text.primary"
@@ -69,7 +70,13 @@ const MealPicker = (props: MealPickerInterface) => {
                              height: "35vh"
                          }}>
                         <img src="/dejeuner.jpg" alt="Déjeuner"
-                             style={{width: "100%", height: "100%", backgroundSize: "cover", borderRadius: "10px"}}/>
+                             style={{
+                                 width: "100%",
+                                 height: "100%",
+                                 backgroundSize: "cover",
+                                 objectFit: "cover",
+                                 borderRadius: "10px"
+                             }}/>
                         <Typography variant="h3" color="text.primary" sx={{
                             width: "100%",
                             textAlign: "center",
@@ -92,7 +99,10 @@ const MealPicker = (props: MealPickerInterface) => {
                              height: "35vh"
                          }}>
                         <img src="/diner.jpg" alt="Diner"
-                             style={{width: "100%", height: "100%", backgroundSize: "cover", borderRadius: "10px"}}/>
+                             style={{
+                                 width: "100%", height: "100%", backgroundSize: "cover", objectFit: "cover",
+                                 borderRadius: "10px"
+                             }}/>
                         <Typography variant="h3" color="text.primary" sx={{
                             width: "100%",
                             textAlign: "center",
@@ -116,7 +126,8 @@ const MealPicker = (props: MealPickerInterface) => {
                          }}>
                         <img src="/snack.jpg" alt="Snack"
                              style={{
-                                 width: "100%", height: "100%", backgroundSize: "cover", borderRadius: "10px",
+                                 width: "100%", height: "100%", backgroundSize: "cover", objectFit: "cover",
+                                 borderRadius: "10px",
                              }}/>
                         <Typography variant="h3" color="text.primary" sx={{
                             width: "100%",
