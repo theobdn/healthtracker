@@ -58,9 +58,6 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
         } else if (pageName === "profile") {
             navigation("/profile")
             handleCloseUserMenu()
-        } else if (pageName === "settings") {
-            navigation("/settings")
-            handleCloseUserMenu()
         } else if (pageName === "logout") {
             navigation("/")
             handleCloseUserMenu()
@@ -200,9 +197,7 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
                             <MenuItem onClick={() => handleNavigation("profile")}>
                                 <Typography textAlign="center">Mon profil</Typography>
                             </MenuItem>
-                            <MenuItem onClick={() => handleNavigation("settings")}>
-                                <Typography textAlign="center">Paramètres</Typography>
-                            </MenuItem>
+                            <Divider variant="middle"/>
                             <MenuItem onClick={() => handleNavigation("logout")}>
                                 <Typography textAlign="center">Déconnexion</Typography>
                             </MenuItem>

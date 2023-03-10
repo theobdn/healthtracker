@@ -10,7 +10,6 @@ import StatsPage from "./Primary/Pages/Stats/StatsPage";
 import ProfilePage from "./Primary/Pages/Profile/ProfilePage";
 import RegisterPage from "./Primary/Pages/Register/RegisterPage";
 import LoginPage from "./Primary/Pages/Login/LoginPage";
-import {Profile} from "./Corelogic/Models/Profile";
 
 const darkTheme = createTheme({
     palette: {

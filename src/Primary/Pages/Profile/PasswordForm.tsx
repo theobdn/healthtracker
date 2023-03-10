@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Button, Grid, IconButton, InputAdornment, Paper, TextField, Typography} from "@mui/material";
+import {Button, Grid, IconButton, InputAdornment, TextField, Typography} from "@mui/material";
 import * as yup from "yup";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -22,7 +22,7 @@ const schemaValidation = yup.object({
         /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
         "Password must contain at least 8 characters, one uppercase, one number and one special case character"
     ),
-    confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords don't match.")
+    confirmPassword: yup.string().required("Please confirm your new password").oneOf([yup.ref('password'), null], "Passwords don't match.")
 }).required();
 
 const PasswordForm = () => {
@@ -49,22 +49,19 @@ const PasswordForm = () => {
     }
 
     return (
-        <Box sx={{height: "32vh", marginTop: "7.5px"}}>
-            <Paper sx={{height: "100%", marginLeft: "15px", marginRight: "15px"}}>
-                <Box sx={{display: "flex", padding: "10px"}}>
+        <Grid container direction="column" p={2}>
+            <Grid item container>
+                <Grid item>
                     <PasswordIcon/>
+                </Grid>
+                <Grid item>
                     <Typography marginLeft="5px">Change your password</Typography>
-                </Box>
-                <form style={{
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center"
-                }}
-                      onSubmit={handleSubmit(onSubmit)}>
+                </Grid>
+            </Grid>
+            <Grid item container>
+                <form onSubmit={handleSubmit(onSubmit)} style={{width: "100%"}}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} md={12}>
+                        <Grid item xs={12} md={4}>
                             <Controller
                                 name="password"
                                 control={control}
@@ -73,6 +70,7 @@ const PasswordForm = () => {
                                         {...field}
                                         fullWidth
                                         variant="filled"
+                                        label="Current password"
                                         placeholder="Your current password..."
                                         type={visibility.password ? 'text' : 'password'}
                                         error={!!errors.password}
@@ -82,18 +80,19 @@ const PasswordForm = () => {
                                                 <InputAdornment position="end">
                                                     <IconButton>
                                                         {visibility.password ?
-                                                            <VisibilityOffIcon
-                                                                onClick={() => setVisibility({
-                                                                    ...visibility,
-                                                                    password: false
-                                                                })
-                                                                }/>
+                                                            <VisibilityOffIcon sx={{fill: "#2196f3"}}
+                                                                               onClick={() => setVisibility({
+                                                                                   ...visibility,
+                                                                                   password: false
+                                                                               })
+                                                                               }/>
                                                             :
-                                                            <VisibilityIcon onClick={() => setVisibility({
-                                                                ...visibility,
-                                                                password: true
-                                                            })
-                                                            }/>
+                                                            <VisibilityIcon sx={{fill: "#2196f3"}}
+                                                                            onClick={() => setVisibility({
+                                                                                ...visibility,
+                                                                                password: true
+                                                                            })
+                                                                            }/>
                                                         }
                                                     </IconButton>
                                                 </InputAdornment>
@@ -102,7 +101,7 @@ const PasswordForm = () => {
                                     />}
                             />
                         </Grid>
-                        <Grid item xs={6} md={6}>
+                        <Grid item xs={12} md={4}>
                             <Controller
                                 name="newPassword"
                                 control={control}
@@ -111,6 +110,7 @@ const PasswordForm = () => {
                                         {...field}
                                         fullWidth
                                         variant="filled"
+                                        label="New password"
                                         placeholder="Your new password..."
                                         type={visibility.newPassword ? 'text' : 'password'}
                                         error={!!errors.newPassword}
@@ -120,17 +120,18 @@ const PasswordForm = () => {
                                                 <InputAdornment position="end">
                                                     <IconButton>
                                                         {visibility.newPassword ?
-                                                            <VisibilityOffIcon
-                                                                onClick={() => setVisibility({
-                                                                    ...visibility,
-                                                                    newPassword: false
-                                                                })
-                                                                }/>
+                                                            <VisibilityOffIcon sx={{fill: "#2196f3"}}
+                                                                               onClick={() => setVisibility({
+                                                                                   ...visibility,
+                                                                                   newPassword: false
+                                                                               })
+                                                                               }/>
                                                             :
-                                                            <VisibilityIcon onClick={() => setVisibility({
-                                                                ...visibility,
-                                                                newPassword: true
-                                                            })}/>
+                                                            <VisibilityIcon sx={{fill: "#2196f3"}}
+                                                                            onClick={() => setVisibility({
+                                                                                ...visibility,
+                                                                                newPassword: true
+                                                                            })}/>
                                                         }
                                                     </IconButton>
                                                 </InputAdornment>
@@ -139,7 +140,7 @@ const PasswordForm = () => {
                                     />}
                             />
                         </Grid>
-                        <Grid item xs={6} md={6}>
+                        <Grid item xs={12} md={4}>
                             <Controller
                                 name="confirmNewPassword"
                                 control={control}
@@ -148,6 +149,7 @@ const PasswordForm = () => {
                                         {...field}
                                         fullWidth
                                         variant="filled"
+                                        label="Confirm new password"
                                         placeholder="Confirm your new password..."
                                         type={visibility.confirmNewPassword ? 'text' : 'password'}
                                         error={!!errors.confirmNewPassword}
@@ -157,17 +159,18 @@ const PasswordForm = () => {
                                                 <InputAdornment position="end">
                                                     <IconButton>
                                                         {visibility.confirmNewPassword ?
-                                                            <VisibilityOffIcon
-                                                                onClick={() => setVisibility({
-                                                                    ...visibility,
-                                                                    confirmNewPassword: false
-                                                                })
-                                                                }/>
+                                                            <VisibilityOffIcon sx={{fill: "#2196f3"}}
+                                                                               onClick={() => setVisibility({
+                                                                                   ...visibility,
+                                                                                   confirmNewPassword: false
+                                                                               })
+                                                                               }/>
                                                             :
-                                                            <VisibilityIcon onClick={() => setVisibility({
-                                                                ...visibility,
-                                                                confirmNewPassword: true
-                                                            })}/>
+                                                            <VisibilityIcon sx={{fill: "#2196f3"}}
+                                                                            onClick={() => setVisibility({
+                                                                                ...visibility,
+                                                                                confirmNewPassword: true
+                                                                            })}/>
                                                         }
                                                     </IconButton>
                                                 </InputAdornment>
@@ -176,15 +179,18 @@ const PasswordForm = () => {
                                     />}
                             />
                         </Grid>
+                        <Grid item container justifyContent="flex-end" spacing={1}>
+                            <Grid item>
+                                <Button type="submit" variant="contained">Confirmer</Button>
+                            </Grid>
+                            <Grid item>
+                                <Button onClick={handleReset} color="error" variant="contained">Reset</Button>
+                            </Grid>
+                        </Grid>
                     </Grid>
-                    <Box sx={{width: "100%", display: "flex", justifyContent: "flex-end", margin: "10px"}}>
-                        <Button type="submit" variant="contained" sx={{marginRight: "5px"}}>Submit</Button>
-                        <Button onClick={handleReset} color="error" variant="contained"
-                                sx={{marginLeft: "5px"}}>Reset</Button>
-                    </Box>
                 </form>
-            </Paper>
-        </Box>
+            </Grid>
+        </Grid>
     );
 };
 

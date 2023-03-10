@@ -2,9 +2,7 @@ import React, {useState} from 'react';
 import * as yup from "yup";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {Box, Button, Divider, Grid, IconButton, InputAdornment, Paper, TextField, Typography} from "@mui/material";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import PasswordIcon from '@mui/icons-material/Password';
+import {Button, Divider, Grid, IconButton, InputAdornment, Paper, TextField, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -54,87 +52,93 @@ const LoginPage = () => {
     }
 
     return (
-        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh"}}>
-            <Paper sx={{margin: "10px", width: "70%"}}>
-                <Box sx={{display: "flex", justifyContent: "space-between"}}>
-                    <Box sx={{display: "flex", alignItems: "center", margin: "5px"}}>
-                        <img src="/logo.png" height="50px"/>
-                        <Typography variant="h4" sx={{paddingLeft: "10px"}}>Formulaire de connexion</Typography>
-                    </Box>
-                    <Button onClick={handleNavigationSignIn}>Don't have an account ? Register</Button>
-                </Box>
-                <Divider variant="middle"/>
-                <form style={{margin: "10px", display: "flex", flexDirection: "column", alignItems: "center"}}
-                      onSubmit={handleSubmit(onSubmit)}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <Controller
-                                name="email"
-                                control={control}
-                                render={({field}) =>
-                                    <TextField
-                                        {...field}
-                                        fullWidth
-                                        variant="filled"
-                                        placeholder="Your email..."
-                                        type="email"
-                                        error={!!errors.email}
-                                        helperText={errors.email?.message}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <AlternateEmailIcon/>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                    />}
-                            />
+        <Grid container justifyContent="center" alignItems="center" height="100vh">
+            <Paper sx={{margin: "10px", width: "30%"}}>
+                <Grid container direction="column" p={1}>
+                    <Grid item container justifyContent="center" alignItems="center">
+                        <Grid item>
+                            <img src="/logo.png" height="50px"/>
                         </Grid>
-                        <Grid item xs={12}>
-                            <Controller
-                                name="password"
-                                control={control}
-                                render={({field}) =>
-                                    <TextField
-                                        {...field}
-                                        fullWidth
-                                        variant="filled"
-                                        placeholder="Your password..."
-                                        type={visibility ? 'text' : 'password'}
-                                        error={!!errors.password}
-                                        helperText={errors.password?.message}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <PasswordIcon/>
-                                                </InputAdornment>
-                                            ),
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton>
-                                                        {visibility ?
-                                                            <VisibilityOffIcon
-                                                                onClick={handleSwitchPasswordVisibility}/>
-                                                            :
-                                                            <VisibilityIcon onClick={handleSwitchPasswordVisibility}/>
-                                                        }
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                    />}
-                            />
+                        <Grid item>
+                            <Typography variant="h4" sx={{paddingLeft: "10px"}}>Health Tracker</Typography>
                         </Grid>
                     </Grid>
-                    <br/>
-                    <Box sx={{display: "flex", margin: "10px"}}>
-                        <Button type="submit" variant="contained" sx={{margin: "5px"}}>Connexion</Button>
-                        <Button onClick={handleReset} color="error" variant="contained"
-                                sx={{margin: "5px"}}>Reset</Button>
-                    </Box>
-                </form>
+                    <Divider variant="middle"/>
+                    <Grid item container justifyContent="center">
+                        <Typography variant="h6" sx={{paddingLeft: "10px"}}>Connexion</Typography>
+                    </Grid>
+                    <Grid item>
+                        <form style={{margin: "10px", display: "flex", flexDirection: "column", alignItems: "center"}}
+                              onSubmit={handleSubmit(onSubmit)}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <Controller
+                                        name="email"
+                                        control={control}
+                                        render={({field}) =>
+                                            <TextField
+                                                {...field}
+                                                fullWidth
+                                                variant="filled"
+                                                label="Email"
+                                                placeholder="Email..."
+                                                type="email"
+                                                error={!!errors.email}
+                                                helperText={errors.email?.message}
+                                            />}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Controller
+                                        name="password"
+                                        control={control}
+                                        render={({field}) =>
+                                            <TextField
+                                                {...field}
+                                                fullWidth
+                                                variant="filled"
+                                                label="Password"
+                                                placeholder="Password..."
+                                                type={visibility ? 'text' : 'password'}
+                                                error={!!errors.password}
+                                                helperText={errors.password?.message}
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton>
+                                                                {visibility ?
+                                                                    <VisibilityOffIcon sx={{fill: "#2196f3"}}
+                                                                                       onClick={handleSwitchPasswordVisibility}/>
+                                                                    :
+                                                                    <VisibilityIcon sx={{fill: "#2196f3"}}
+                                                                                    onClick={handleSwitchPasswordVisibility}/>
+                                                                }
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    )
+                                                }}
+                                            />}
+                                    />
+                                </Grid>
+                                <Grid item container justifyContent="flex-end">
+                                    <Grid item>
+                                        <Button type="submit" variant="contained"
+                                                sx={{margin: "5px"}}>Connexion</Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button onClick={handleReset} color="error" variant="contained"
+                                                sx={{margin: "5px"}}>Reset</Button>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </form>
+                    </Grid>
+                    <Grid item container justifyContent="center">
+                        <Button onClick={handleNavigationSignIn}>Don't have an account ? Register</Button>
+                    </Grid>
+                </Grid>
             </Paper>
-        </Box>
+        </Grid>
     );
 };
 
