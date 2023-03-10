@@ -1,14 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {
-    Avatar,
-    Box, Divider,
-    Grid, List,
-    ListItem,
-    Paper,
-    Typography
-} from "@mui/material";
-import {data01, dataWeightGraph, profilesData} from "../../../Secondary/InMemory/data";
-import {LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Pie, PieChart, ResponsiveContainer} from 'recharts';
+import {Divider, Grid, List, ListItem, Paper, Typography} from "@mui/material";
+import {data01, dataWeightGraph} from "../../../Secondary/InMemory/data";
+import {CartesianGrid, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
 import MonitorWeightIcon from '@mui/icons-material/MonitorWeight';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import HeightIcon from '@mui/icons-material/Height';
@@ -47,98 +40,98 @@ const Home = () => {
 
 
     return (
-        <div>
+        <>
             {/*<HomeHeader/>*/}
-            <Box sx={{flexGrow: 1, margin: "15px 10px 10px 10px"}}>
-                <Grid container spacing={1}>
-                    <Grid item xs={6} md={6}>
-                        <Paper sx={{height: "45vh", overflow: "auto"}}>
-                            <Typography variant="h4" sx={{paddingLeft: "10px"}}>My profile</Typography>
-                            <Divider variant="middle"/>
-                            <Box sx={{display: "flex", alignItems: "center", padding: "8px"}}>
+            <Grid container spacing={1} p={2}>
+                <Grid item sm={12} lg={6}>
+                    <Paper elevation={5}>
+                        <Typography variant="h4" component="h2">My profile</Typography>
+                        <Divider variant="middle"/>
+                        <Grid container direction="column" spacing={2} p={3}>
+                            <Grid item container alignItems="center">
                                 <PersonIcon sx={{marginRight: "7px"}}/>
                                 <TextValueField label="Name"
                                                 value={`${loggedProfile?.name} ${loggedProfile?.firstName}`}/>
-                            </Box>
-                            <Divider variant="middle"/>
-                            <Box sx={{display: "flex", alignItems: "center", padding: "6px"}}>
+                            </Grid>
+                            <Grid item container alignItems="center">
                                 <CakeIcon sx={{marginRight: "7px"}}/>
                                 <TextValueField label="Birth date"
                                                 value={moment(loggedProfile?.dateOfBirth).format("DD/MM/YYYY")}/>
-                            </Box>
-                            <Box sx={{display: "flex", alignItems: "center", padding: "6px"}}>
+                            </Grid>
+                            <Grid item container alignItems="center">
                                 <HeightIcon sx={{marginRight: "7px"}}/>
                                 <TextValueField label="Height" value={loggedProfile?.height}/>
-                            </Box>
-                            <Box sx={{display: "flex", alignItems: "center", padding: "6px"}}>
+                            </Grid>
+                            <Grid item container alignItems="center">
                                 <MonitorWeightIcon sx={{marginRight: "7px"}}/>
                                 <TextValueField label="Weight" value={loggedProfile?.weight}/>
-                            </Box>
-                            <Box sx={{display: "flex", alignItems: "center", padding: "6px"}}>
+                            </Grid>
+                            <Grid item container alignItems="center">
                                 <CalendarMonthIcon sx={{marginRight: "7px"}}/>
                                 <TextValueField label="Creation date"
                                                 value={moment(loggedProfile?.creationDate).format("DD/MM/YYYY")}/>
-                            </Box>
-                            <Box sx={{display: "flex", alignItems: "center", padding: "8px"}}>
+                            </Grid>
+                            <Grid item container alignItems="center">
                                 <PersonIcon sx={{marginRight: "7px"}}/>
                                 <TextValueField label="Sexe"
                                                 value={loggedProfile?.sexe.label}/>
-                            </Box>
-                            <Box sx={{display: "flex", alignItems: "center", padding: "6px"}}>
+                            </Grid>
+                            <Grid item container alignItems="center">
                                 <LocalDiningIcon sx={{marginRight: "7px"}}/>
                                 <TextValueField label="Diet" value={loggedProfile?.foodPreference.label}/>
-                            </Box>
-                            <Box sx={{display: "flex", alignItems: "center", padding: "6px"}}>
+                            </Grid>
+                            <Grid item container alignItems="center">
                                 <FlagIcon sx={{marginRight: "7px"}}/>
                                 <TextValueField label="Weight objective" value={loggedProfile?.weight}/>
-                            </Box>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={6} md={6}>
-                        <Paper sx={{height: "45vh", overflow: "auto"}}>
-                            <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                                <Typography variant="h4" sx={{paddingLeft: "10px"}}>Last meals</Typography>
-                                <Box sx={{display: "flex", alignItems: "center"}}>
-                                    <Typography color="text.primary" variant="h5" sx={{paddingRight: "10px"}}>Total
-                                        :</Typography>
-                                    <Typography color="secondary" variant="h5" sx={{paddingRight: "10px"}}>3500
-                                        calories</Typography>
-                                </Box>
-                            </Box>
-                            <Divider variant="middle"/>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                </Grid>
+                <Grid item sm={12} lg={6}>
+                    <Paper elevation={5}>
+                        <Grid container justifyContent="space-between">
+                            <Grid item>
+                                <Typography variant="h4" component="h2">Last meals</Typography>
+                            </Grid>
+                            <Grid item>
+                                <Grid container>
+                                    <Typography color="text.primary" variant="h5" sx={{paddingRight: "10px"}}>
+                                        Total :
+                                    </Typography>
+                                    <Typography color="secondary" variant="h5">
+                                        3500 calories
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Divider variant="middle"/>
+                        <Grid container direction="column" spacing={2} p={3}>
                             <List sx={{width: '100%'}}>
-                                {allMeals.map((meal: Meal) => {
+                                {allMeals.map((meal, index) => {
                                     return (
                                         <>
-                                            <ListItem key={meal.id} sx={{
-                                                display: "flex",
-                                                justifyContent: "space-between",
-                                                alignItems: "center"
-                                            }}>
-                                                <Box sx={{
-                                                    display: "flex",
-                                                    flexDirection: "column",
-                                                    alignItems: "flex-start"
-                                                }}>
+                                            <ListItem key={meal.id} divider={index < allMeals.length - 1}>
+                                                <Grid container direction="column">
                                                     <TextValueField label={"Title"}
                                                                     value={meal.label || ""}/>
                                                     <TextValueField label={"Meal type"}
                                                                     value={meal.mealType?.label || ""}/>
-                                                </Box>
+                                                </Grid>
                                                 <TextValueField label={"Total"} value={300}/>
                                             </ListItem>
-                                            <Divider/>
                                         </>
                                     )
                                 })}
                             </List>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={6} md={6}>
-                        <Paper sx={{height: "45vh", width: "100%"}}>
-                            <Typography variant="h4" sx={{paddingLeft: "10px"}}>Weight evolution</Typography>
-                            <Divider variant="middle"/>
-                            <ResponsiveContainer width="95%" height="87%">
+                        </Grid>
+                    </Paper>
+                </Grid>
+                <Grid item sm={12} lg={6}>
+                    <Paper elevation={5}>
+                        <Typography variant="h4">Weight evolution</Typography>
+                        <Divider variant="middle"/>
+                        <Grid container height={400}>
+                            <ResponsiveContainer width="95%" height="100%">
                                 <LineChart data={dataWeightGraph}>
                                     <Line type="monotone" dataKey="kg" stroke="#8884d8"/>
                                     <CartesianGrid stroke="#ccc"/>
@@ -147,13 +140,15 @@ const Home = () => {
                                     <Tooltip/>
                                 </LineChart>
                             </ResponsiveContainer>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={6} md={6}>
-                        <Paper sx={{height: "45vh", width: "100%"}}>
-                            <Typography variant="h4" sx={{paddingLeft: "10px"}}>Food type repartition</Typography>
-                            <Divider variant="middle"/>
-                            <ResponsiveContainer width="100%" height="90%">
+                        </Grid>
+                    </Paper>
+                </Grid>
+                <Grid item sm={12} lg={6}>
+                    <Paper elevation={5}>
+                        <Typography variant="h4">Food type repartition</Typography>
+                        <Divider variant="middle"/>
+                        <Grid container height={400}>
+                            <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
                                         dataKey="value"
@@ -168,13 +163,11 @@ const Home = () => {
                                     <Tooltip/>
                                 </PieChart>
                             </ResponsiveContainer>
-                        </Paper>
-                    </Grid>
+                        </Grid>
+                    </Paper>
                 </Grid>
-            </Box>
-            <Paper>
-            </Paper>
-        </div>
+            </Grid>
+        </>
     )
 }
 

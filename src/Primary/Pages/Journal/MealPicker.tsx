@@ -1,6 +1,5 @@
 import React from 'react';
-import Box from "@mui/material/Box";
-import {Grid, Typography} from '@mui/material';
+import {Grid, Paper, Typography} from '@mui/material';
 
 interface MealPickerInterface {
     onMealPick: (mealId: number) => void
@@ -31,117 +30,102 @@ const MealPicker = (props: MealPickerInterface) => {
     }
 
     return (
-        <>
-            <Grid container>
-                <Grid item xs={6} md={6}>
-                    <Box onClick={() => handleMealPicked(1)}
-                         sx={{
-                             cursor: "pointer", position: "relative", margin: "10px", borderRadius: "10px",
-                             border: "3px solid #4dabf5", height: "35vh"
-                         }}>
+        <Paper>
+            <Grid container height="80vh" alignItems="center">
+                <Grid item sm={12} lg={6} p={2}>
+                    <Grid container position="relative" border="2px solid" borderColor="#4dabf5"
+                          onClick={() => handleMealPicked(1)}
+                          sx={{cursor: "pointer"}}>
                         <img src="/petitDejeuner.jpg" alt="Petit déjeuner"
                              style={{
                                  width: "100%",
-                                 height: "100%",
+                                 height: "300px",
                                  backgroundSize: "cover",
-                                 objectFit: "cover",
-                                 borderRadius: "10px"
+                                 objectFit: "cover"
                              }}/>
-                        <Typography variant="h3" color="text.primary"
+                        <Typography variant="h3" component="button" bgcolor="black" color="white"
                                     sx={{
                                         width: "100%",
+                                        cursor: "pointer",
                                         textAlign: "center",
                                         position: "absolute",
                                         top: "50%",
                                         left: "50%",
                                         transform: "translate(-50%, -50%)"
-                                    }}>PETIT
-                            DEJEUNER</Typography>
-                    </Box>
+                                    }}>PETIT DEJEUNER</Typography>
+                    </Grid>
                 </Grid>
-                <Grid item xs={6} md={6}>
-                    <Box onClick={() => handleMealPicked(2)}
-                         sx={{
-                             cursor: "pointer",
-                             position: "relative",
-                             margin: "10px",
-                             border: "3px solid #4dabf5",
-                             borderRadius: "10px",
-                             height: "35vh"
-                         }}>
-                        <img src="/dejeuner.jpg" alt="Déjeuner"
+                <Grid item sm={12} lg={6} p={2}>
+                    <Grid container position="relative" border="2px solid" borderColor="#4dabf5"
+                          onClick={() => handleMealPicked(2)}
+                          sx={{cursor: "pointer"}}>
+                        <img src="/dejeuner.jpg" alt="Petit déjeuner"
                              style={{
                                  width: "100%",
-                                 height: "100%",
+                                 height: "300px",
                                  backgroundSize: "cover",
-                                 objectFit: "cover",
-                                 borderRadius: "10px"
+                                 objectFit: "cover"
                              }}/>
-                        <Typography variant="h3" color="text.primary" sx={{
-                            width: "100%",
-                            textAlign: "center",
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            transform: "translate(-50%, -50%)"
-                        }}>
-                            DEJEUNER</Typography>
-                    </Box>
+                        <Typography variant="h3" component="button" bgcolor="black" color="white"
+                                    sx={{
+                                        width: "100%",
+                                        cursor: "pointer",
+                                        textAlign: "center",
+                                        position: "absolute",
+                                        top: "50%",
+                                        left: "50%",
+                                        transform: "translate(-50%, -50%)"
+                                    }}>DEJEUNER</Typography>
+                    </Grid>
                 </Grid>
-                <Grid item xs={6} md={6}>
-                    <Box onClick={() => handleMealPicked(3)}
-                         sx={{
-                             cursor: "pointer",
-                             position: "relative",
-                             margin: "10px",
-                             border: "3px solid #4dabf5",
-                             borderRadius: "10px",
-                             height: "35vh"
-                         }}>
-                        <img src="/diner.jpg" alt="Diner"
+                <Grid item sm={12} lg={6} p={2}>
+                    <Grid container position="relative" border="2px solid" borderColor="#4dabf5"
+                          onClick={() => handleMealPicked(3)}
+                          sx={{cursor: "pointer"}}>
+                        <img src="/diner.jpg" alt="Petit déjeuner"
                              style={{
-                                 width: "100%", height: "100%", backgroundSize: "cover", objectFit: "cover",
-                                 borderRadius: "10px"
+                                 width: "100%",
+                                 height: "300px",
+                                 backgroundSize: "cover",
+                                 objectFit: "cover"
                              }}/>
-                        <Typography variant="h3" color="text.primary" sx={{
-                            width: "100%",
-                            textAlign: "center",
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            transform: "translate(-50%, -50%)"
-                        }}>
-                            DINER</Typography>
-                    </Box>
+                        <Typography variant="h3" component="button" bgcolor="black" color="white"
+                                    sx={{
+                                        width: "100%",
+                                        cursor: "pointer",
+                                        textAlign: "center",
+                                        position: "absolute",
+                                        top: "50%",
+                                        left: "50%",
+                                        transform: "translate(-50%, -50%)"
+                                    }}>DINER</Typography>
+                    </Grid>
                 </Grid>
-                <Grid item xs={6} md={6}>
-                    <Box onClick={() => handleMealPicked(4)}
-                         sx={{
-                             cursor: "pointer",
-                             position: "relative",
-                             margin: "10px",
-                             border: "3px solid #4dabf5",
-                             borderRadius: "10px",
-                             height: "35vh"
-                         }}>
-                        <img src="/snack.jpg" alt="Snack"
+                <Grid item sm={12} lg={6} p={2}>
+                    <Grid container position="relative" border="2px solid" borderColor="#4dabf5"
+                          onClick={() => handleMealPicked(4)}
+                          sx={{cursor: "pointer"}}>
+                        <img src="/snack.jpg" alt="Petit déjeuner"
                              style={{
-                                 width: "100%", height: "100%", backgroundSize: "cover", objectFit: "cover",
-                                 borderRadius: "10px",
+                                 width: "100%",
+                                 height: "300px",
+                                 backgroundSize: "cover",
+                                 objectFit: "cover"
                              }}/>
-                        <Typography variant="h3" color="text.primary" sx={{
-                            width: "100%",
-                            textAlign: "center",
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            transform: "translate(-50%, -50%)"
-                        }}>
-                            SNACK</Typography>
-                    </Box>
+                        <Typography variant="h3" component="button" bgcolor="black" color="white"
+                                    sx={{
+                                        width: "100%",
+                                        cursor: "pointer",
+                                        textAlign: "center",
+                                        position: "absolute",
+                                        top: "50%",
+                                        left: "50%",
+                                        transform: "translate(-50%, -50%)"
+                                    }}>SNACK</Typography>
+                    </Grid>
                 </Grid>
             </Grid>
-        </>
+        </Paper>
     );
 };
 

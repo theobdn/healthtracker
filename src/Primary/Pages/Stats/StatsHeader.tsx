@@ -1,11 +1,11 @@
 import React from 'react';
-import {Box} from "@mui/material";
+import {Paper} from "@mui/material";
 
 const StatsHeader = () => {
     return (
-        <Box>
+        <Paper>
             Stats header
-        </Box>
+        </Paper>
     );
 };
 
