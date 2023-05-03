@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import {Box, Button, Grid, IconButton, InputAdornment, Paper, TextField, Typography} from "@mui/material";
+import {Box, Button, Grid, IconButton, InputAdornment, MenuItem, Paper, TextField, Typography} from "@mui/material";
 import * as yup from "yup";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {yupResolver} from "@hookform/resolvers/yup";
 import PasswordIcon from '@mui/icons-material/Password';
+import InfoIcon from "@mui/icons-material/Info";
+import {sexeData} from "../../../Secondary/InMemory/data";
 
 type InputsPasswordsProfilePage = {
     password: string
@@ -49,22 +51,15 @@ const PasswordForm = () => {
     }
 
     return (
-        <Box sx={{height: "32vh", marginTop: "7.5px"}}>
-            <Paper sx={{height: "100%", marginLeft: "15px", marginRight: "15px"}}>
-                <Box sx={{display: "flex", padding: "10px"}}>
-                    <PasswordIcon/>
-                    <Typography marginLeft="5px">Change your password</Typography>
-                </Box>
-                <form style={{
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center"
-                }}
-                      onSubmit={handleSubmit(onSubmit)}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} md={12}>
+        <Grid container direction="column">
+            <Grid item container p={3}>
+                <PasswordIcon/>
+                <Typography marginLeft="5px">Change your password</Typography>
+            </Grid>
+            <Grid item>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Grid container spacing={4} px={2} py={1}>
+                        <Grid item md={12}>
                             <Controller
                                 name="password"
                                 control={control}
@@ -102,7 +97,7 @@ const PasswordForm = () => {
                                     />}
                             />
                         </Grid>
-                        <Grid item xs={6} md={6}>
+                        <Grid item md={12}>
                             <Controller
                                 name="newPassword"
                                 control={control}
@@ -139,7 +134,7 @@ const PasswordForm = () => {
                                     />}
                             />
                         </Grid>
-                        <Grid item xs={6} md={6}>
+                        <Grid item md={12}>
                             <Controller
                                 name="confirmNewPassword"
                                 control={control}
@@ -177,14 +172,17 @@ const PasswordForm = () => {
                             />
                         </Grid>
                     </Grid>
-                    <Box sx={{width: "100%", display: "flex", justifyContent: "flex-end", margin: "10px"}}>
-                        <Button type="submit" variant="contained" sx={{marginRight: "5px"}}>Submit</Button>
-                        <Button onClick={handleReset} color="error" variant="contained"
-                                sx={{marginLeft: "5px"}}>Reset</Button>
-                    </Box>
+                    <Grid item container justifyContent="flex-end" p={3} spacing={2}>
+                        <Grid item>
+                            <Button type="submit" variant="contained">Submit</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button onClick={handleReset} color="error" variant="contained">Reset</Button>
+                        </Grid>
+                    </Grid>
                 </form>
-            </Paper>
-        </Box>
+            </Grid>
+        </Grid>
     );
 };
 

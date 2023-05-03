@@ -5,12 +5,13 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import NotFound from "./Primary/Pages/NotFound";
 import ResponsiveAppBar from "./Primary/Navbar";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
-import JournalPage from "./Primary/Pages/Journal/JournalPage";
 import StatsPage from "./Primary/Pages/Stats/StatsPage";
 import ProfilePage from "./Primary/Pages/Profile/ProfilePage";
 import RegisterPage from "./Primary/Pages/Register/RegisterPage";
 import LoginPage from "./Primary/Pages/Login/LoginPage";
-import {Profile} from "./Corelogic/Models/Profile";
+import JournalPage from "./Primary/Pages/Journal/JournalPage";
+import RecipePage from "./Primary/Pages/Recipe/RecipePage";
+import JournalHystoryPage from "./Primary/Pages/JournalHistory/JournalHystoryPage";
 
 const darkTheme = createTheme({
     palette: {
@@ -96,6 +97,18 @@ function App() {
                                     <JournalPage/>
                                 </>
                             )}></Route>
+                            <Route path="/journalHistory" element={(
+                                <>
+                                    <ResponsiveAppBar onThemeChange={setTheme}/>
+                                    <JournalHystoryPage/>
+                                </>
+                            )}></Route>
+                            <Route path="/recipe" element={(
+                                <>
+                                    <ResponsiveAppBar onThemeChange={setTheme}/>
+                                    <RecipePage/>
+                                </>
+                            )}></Route>
                             <Route path="/stats" element={(
                                 <>
                                     <ResponsiveAppBar onThemeChange={setTheme}/>
@@ -103,12 +116,6 @@ function App() {
                                 </>
                             )}></Route>
                             <Route path="/profile" element={(
-                                <>
-                                    <ResponsiveAppBar onThemeChange={setTheme}/>
-                                    <ProfilePage/>
-                                </>
-                            )}></Route>
-                            <Route path="/settings" element={(
                                 <>
                                     <ResponsiveAppBar onThemeChange={setTheme}/>
                                     <ProfilePage/>

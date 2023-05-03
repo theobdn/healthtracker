@@ -54,13 +54,16 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
     const handleNavigation = (pageName: string) => {
         if (pageName === "journal") {
             navigation("/journal")
+        } else if (pageName === "journalHistory") {
+            navigation("/journalHistory")
+            handleCloseUserMenu()
+        } else if (pageName === "recipe") {
+            navigation("/recipe")
+            handleCloseUserMenu()
         } else if (pageName === "stats") {
             navigation("/stats")
         } else if (pageName === "profile") {
             navigation("/profile")
-            handleCloseUserMenu()
-        } else if (pageName === "settings") {
-            navigation("/settings")
             handleCloseUserMenu()
         } else if (pageName === "logout") {
             navigation("/")
@@ -69,7 +72,7 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
     }
 
     return (
-        <AppBar position="static" sx={{height: "9vh"}}>
+        <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <img src="./logo.png" style={{width: "50px", height: "50px"}}/>
@@ -159,6 +162,18 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
                             Mon journal
                         </Button>
                         <Button
+                            onClick={() => handleNavigation("journalHistory")}
+                            sx={{my: 2, color: 'white', display: 'block'}}
+                        >
+                            Historique journal
+                        </Button>
+                        <Button
+                            onClick={() => handleNavigation("recipe")}
+                            sx={{my: 2, color: 'white', display: 'block'}}
+                        >
+                            Mes recettes
+                        </Button>
+                        <Button
                             onClick={() => handleNavigation("stats")}
                             sx={{my: 2, color: 'white', display: 'block'}}
                         >
@@ -201,9 +216,7 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
                             <MenuItem onClick={() => handleNavigation("profile")}>
                                 <Typography textAlign="center">Mon profil</Typography>
                             </MenuItem>
-                            <MenuItem onClick={() => handleNavigation("settings")}>
-                                <Typography textAlign="center">Paramètres</Typography>
-                            </MenuItem>
+                            <Divider/>
                             <MenuItem onClick={() => handleNavigation("logout")}>
                                 <Typography textAlign="center">Déconnexion</Typography>
                             </MenuItem>

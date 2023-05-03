@@ -1,16 +1,15 @@
 import React, {useState} from 'react';
 import {
     Box,
-    Button,
+    Button, Grid,
     Paper,
     Step,
     StepLabel,
-    Stepper,
+    Stepper, TextField,
     Typography
 } from "@mui/material";
-import MaxWidthDialog from "../../Utils/FoodDialog";
 import MealPicker from "./MealPicker";
-import JournalHeader from "./JournalHeader";
+import AlimentAdder from "./AlimentAdder";
 
 const JournalPage = () => {
     const steps = ['Choisir un type de repas', 'Choisir les aliments', 'Validation du repas']
@@ -19,17 +18,17 @@ const JournalPage = () => {
     const [mealId, setMealId] = useState<number | undefined>(undefined)
 
     const isStepSkipped = (step: number) => {
-        return skipped.has(step);
+        return skipped.has(step)
     }
 
     const handleNext = () => {
-        let newSkipped = skipped;
+        let newSkipped = skipped
         if (isStepSkipped(activeStep)) {
-            newSkipped = new Set(newSkipped.values());
-            newSkipped.delete(activeStep);
+            newSkipped = new Set(newSkipped.values())
+            newSkipped.delete(activeStep)
         }
 
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
         setSkipped(newSkipped)
     }
 
@@ -51,47 +50,38 @@ const JournalPage = () => {
 
     return (
         <>
-            <JournalHeader/>
-            <Box sx={{width: '100%'}}>
-                <Box sx={{margin: "10px"}}>
-                    <Stepper activeStep={activeStep}>
-                        {steps.map((label, index) => {
-                            const stepProps: { completed?: boolean } = {}
-                            const labelProps: {
-                                optional?: React.ReactNode
-                            } = {}
-                            if (isStepSkipped(index)) {
-                                stepProps.completed = false
-                            }
-                            return (
-                                <Step key={label} {...stepProps}>
-                                    <StepLabel {...labelProps}>{label}</StepLabel>
-                                </Step>
-                            )
-                        })}
-                    </Stepper>
-                </Box>
-                {activeStep === 0 &&
-                    <Paper sx={{
-                        marginLeft: "10px",
-                        marginRight: "10px",
-                        height: "78vh",
-                        display: "flex",
-                        alignItems: "center"
-                    }}>
-                        <MealPicker onMealPick={handleGetMealPick}/>
+            <Grid container alignItems="center" direction="column">
+                <Grid item container>
+                    <Paper sx={{marginTop: "10px", p: 3, width: "100%"}}>
+                        <Stepper activeStep={activeStep}>
+                            {steps.map((label, index) => {
+                                const stepProps: { completed?: boolean } = {}
+                                const labelProps: {
+                                    optional?: React.ReactNode
+                                } = {}
+                                if (isStepSkipped(index)) {
+                                    stepProps.completed = false
+                                }
+                                return (
+                                    <Step key={label} {...stepProps}>
+                                        <StepLabel {...labelProps}>{label}</StepLabel>
+                                    </Step>
+                                )
+                            })}
+                        </Stepper>
                     </Paper>
+                </Grid>
+                {activeStep === 0 &&
+                    <Grid item container p={3}>
+                        <Paper sx={{p: 3, width: "100%"}}>
+                            <MealPicker onMealPick={handleGetMealPick}/>
+                        </Paper>
+                    </Grid>
                 }
                 {activeStep === 1 &&
-                    <Box>
-                        <Paper sx={{margin: "10px"}}>
-                            <Typography sx={{m: 2}}>Etape {activeStep + 1} : Choisir les aliments</Typography>
-                            <Box sx={{display: "flex", justifyContent: "center", flexDirection: "column"}}>
-                                <MaxWidthDialog onConfirmClick={handleConfirmAlimentsAddition}
-                                                onPreviousStepClick={handleBack}/>
-                            </Box>
-                        </Paper>
-                    </Box>
+                    <Grid item container p={3}>
+                        <AlimentAdder/>
+                    </Grid>
                 }
                 {activeStep === 2 && (
                     <Box>
@@ -105,7 +95,7 @@ const JournalPage = () => {
                         </Paper>
                     </Box>
                 )}
-            </Box>
+            </Grid>
         </>
     )
 }

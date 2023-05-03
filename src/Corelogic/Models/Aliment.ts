@@ -4,6 +4,10 @@ export interface MealType extends Parameter {
 
 }
 
+export interface AlimentFamily extends Parameter {
+
+}
+
 export interface Meal {
     id: number,
     label?: string,
@@ -12,8 +16,9 @@ export interface Meal {
 
 export interface Aliment {
     id: number,
+    code?: string,
     label?: string,
     weight?: number,
     caloriesPerWeight?: number,
-    family?: Parameter
+    family?: AlimentFamily
 }
