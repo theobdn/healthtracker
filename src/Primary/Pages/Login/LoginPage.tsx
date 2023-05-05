@@ -6,6 +6,7 @@ import {Button, Divider, Grid, IconButton, InputAdornment, Paper, TextField, Typ
 import {useNavigate} from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import axios from "axios";
 
 //Typescript tipage des inputs
 type Inputs = {
@@ -22,8 +23,12 @@ const schemaValidation = yup.object({
     )
 }).required();
 
+interface LoginPageInterface {
+    onSubmitClick: () => void
+}
 
-const LoginPage = () => {
+const LoginPage = (props: LoginPageInterface) => {
+    const {onSubmitClick} = props
     const navigate = useNavigate()
     const [visibility, setVisibility] = useState<boolean>(false)
 
@@ -35,7 +40,14 @@ const LoginPage = () => {
 
     //Fonction submit click
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data)
+        axios.post("http://localhost:8080/auth/signin", data)
+            .then(function (response) {
+                onSubmitClick()
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 
     //Fonction reset click

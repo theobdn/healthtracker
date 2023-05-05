@@ -6,6 +6,7 @@ import {Button, Divider, Grid, IconButton, InputAdornment, Paper, TextField, Typ
 import {useNavigate} from "react-router-dom";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import axios from "axios";
 
 //Typescript tipage des inputs
 type Inputs = {
@@ -43,6 +44,16 @@ const RegisterPage = () => {
 
     //Fonction submit click
     const onSubmit: SubmitHandler<Inputs> = (data) => {
+        axios.post('http://localhost:8080/auth/signup', {
+            "password": data.password,
+            "email": data.email
+        })
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
         console.log(data)
     }
 

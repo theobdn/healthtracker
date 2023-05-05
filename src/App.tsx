@@ -61,6 +61,7 @@ const lightTheme = createTheme({
 
 function App() {
     const [isLightTheme, setIsLightTheme] = useState<boolean>(false)
+    const [isAuthentified, setIsAuthentified] = useState<boolean>(false)
 
     useEffect(() => {
         isLightTheme ? localStorage.setItem("HealthTrackerTheme", "lightTheme") : localStorage.setItem("HealthTrackerTheme", "darkTheme")
@@ -79,6 +80,10 @@ function App() {
         isLightTheme ? setIsLightTheme(false) : setIsLightTheme(true)
     }
 
+    const handleSubmitClick = () => {
+        setIsAuthentified(true)
+    }
+
     return (
         <>
             <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
@@ -87,41 +92,53 @@ function App() {
                         <Routes>
                             <Route path="/" element={(
                                 <>
-                                    <ResponsiveAppBar onThemeChange={setTheme}/>
-                                    <Home/>
+                                    {isAuthentified ?
+                                        <>
+                                            <ResponsiveAppBar onThemeChange={setTheme}/>
+                                            <Home/>
+                                        </>
+                                        :
+                                        <LoginPage onSubmitClick={handleSubmitClick}/>
+                                    }
                                 </>
-                            )}></Route>
+                            )}>
+                            </Route>
                             <Route path="/journal" element={(
                                 <>
                                     <ResponsiveAppBar onThemeChange={setTheme}/>
                                     <JournalPage/>
                                 </>
-                            )}></Route>
+                            )}>
+                            </Route>
                             <Route path="/journalHistory" element={(
                                 <>
                                     <ResponsiveAppBar onThemeChange={setTheme}/>
                                     <JournalHystoryPage/>
                                 </>
-                            )}></Route>
+                            )}>
+                            </Route>
                             <Route path="/recipe" element={(
                                 <>
                                     <ResponsiveAppBar onThemeChange={setTheme}/>
                                     <RecipePage/>
                                 </>
-                            )}></Route>
+                            )}>
+                            </Route>
                             <Route path="/stats" element={(
                                 <>
                                     <ResponsiveAppBar onThemeChange={setTheme}/>
                                     <StatsPage/>
                                 </>
-                            )}></Route>
+                            )}>
+                            </Route>
                             <Route path="/profile" element={(
                                 <>
                                     <ResponsiveAppBar onThemeChange={setTheme}/>
                                     <ProfilePage/>
                                 </>
-                            )}></Route>
-                            <Route path="/login" element={<LoginPage/>}></Route>
+                            )}>
+                            </Route>
+                            <Route path="/login" element={<LoginPage onSubmitClick={handleSubmitClick}/>}></Route>
                             <Route path="/register" element={<RegisterPage/>}></Route>
                             <Route path="/*" element={<NotFound/>}></Route>
                         </Routes>
