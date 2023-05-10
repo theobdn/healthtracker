@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Avatar,
-    Box, CircularProgress, CircularProgressProps, Divider,
-    Grid, List,
+    Box,
+    CircularProgress,
+    CircularProgressProps,
+    Divider,
+    Grid,
+    List,
     ListItem,
     Paper,
     Typography
 } from "@mui/material";
-import {data01, dataWeightGraph, profilesData} from "../../../Secondary/InMemory/data";
-import {LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Pie, PieChart, ResponsiveContainer} from 'recharts';
+import {dataWeightGraph} from "../../../Secondary/InMemory/data";
+import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
 import MonitorWeightIcon from '@mui/icons-material/MonitorWeight';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import HeightIcon from '@mui/icons-material/Height';
@@ -19,14 +22,22 @@ import FlagIcon from '@mui/icons-material/Flag';
 import {Meal} from "../../../Corelogic/Models/Aliment";
 import TextValueField from "../../Utils/TextValueField";
 import {Profile} from "../../../Corelogic/Models/Profile";
-import moment from "moment/moment";
 import HomeHeader from "./HomeHeader";
+import {useNavigate} from "react-router-dom";
 
 const Home = () => {
     const moment = require('moment')
+    const [authenticated, setauthenticated] = useState(false)
     const [allMeals, setAllMeals] = useState<Meal[]>([])
     const [loggedProfile, setLoggedProfile] = useState<Profile>()
     const [progress, setProgress] = React.useState(30)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const jwt = localStorage.getItem("HealthTrackerJWT")
+
+        jwt ? setauthenticated(true) : setauthenticated(false)
+    }, [])
 
     useEffect(() => {
         fetch('http://localhost:3001/profile')
@@ -75,7 +86,6 @@ const Home = () => {
             </Box>
         )
     }
-
 
     return (
         <>

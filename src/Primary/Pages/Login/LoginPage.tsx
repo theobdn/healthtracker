@@ -24,13 +24,14 @@ const schemaValidation = yup.object({
 }).required();
 
 interface LoginPageInterface {
-    onSubmitClick: () => void
+    onSubmitClick: (jwt: string) => void
 }
 
 const LoginPage = (props: LoginPageInterface) => {
     const {onSubmitClick} = props
     const navigate = useNavigate()
     const [visibility, setVisibility] = useState<boolean>(false)
+    const [isLogged, setIsLogged] = useState<boolean>(false)
 
     const {handleSubmit, reset, formState: {errors}, control} = useForm<Inputs>(
         {
@@ -42,8 +43,8 @@ const LoginPage = (props: LoginPageInterface) => {
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         axios.post("http://localhost:8080/auth/signin", data)
             .then(function (response) {
-                onSubmitClick()
-                console.log(response)
+                onSubmitClick(response.data.jwt)
+                window.location.reload()
             })
             .catch(function (error) {
                 console.log(error)
@@ -80,8 +81,9 @@ const LoginPage = (props: LoginPageInterface) => {
                         <Typography variant="h6" sx={{paddingLeft: "10px"}}>Connexion</Typography>
                     </Grid>
                     <Grid item>
-                        <form style={{margin: "10px", display: "flex", flexDirection: "column", alignItems: "center"}}
-                              onSubmit={handleSubmit(onSubmit)}>
+                        <form
+                            style={{margin: "10px", display: "flex", flexDirection: "column", alignItems: "center"}}
+                            onSubmit={handleSubmit(onSubmit)}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <Controller
@@ -151,7 +153,7 @@ const LoginPage = (props: LoginPageInterface) => {
                 </Grid>
             </Paper>
         </Grid>
-    );
-};
+    )
+}
 
 export default LoginPage;

@@ -12,6 +12,7 @@ import LoginPage from "./Primary/Pages/Login/LoginPage";
 import JournalPage from "./Primary/Pages/Journal/JournalPage";
 import RecipePage from "./Primary/Pages/Recipe/RecipePage";
 import JournalHystoryPage from "./Primary/Pages/JournalHistory/JournalHystoryPage";
+import RegisterMoreInfosPage from "./Primary/Pages/Register/RegisterMoreInfosPage";
 
 const darkTheme = createTheme({
     palette: {
@@ -76,12 +77,21 @@ function App() {
         }
     }, [isLightTheme])
 
+    useEffect(() => {
+        const jwt = localStorage.getItem("HealthTrackerJWT")
+        if (jwt && jwt.length > 10) {
+            setIsAuthentified(true)
+        } else {
+            setIsAuthentified(false)
+        }
+    }, [isAuthentified])
+
     const setTheme = (isLightTheme: boolean) => {
         isLightTheme ? setIsLightTheme(false) : setIsLightTheme(true)
     }
 
-    const handleSubmitClick = () => {
-        setIsAuthentified(true)
+    const handleSubmitClick = (jwt: string) => {
+        localStorage.setItem("HealthTrackerJWT", jwt)
     }
 
     return (
@@ -138,8 +148,21 @@ function App() {
                                 </>
                             )}>
                             </Route>
-                            <Route path="/login" element={<LoginPage onSubmitClick={handleSubmitClick}/>}></Route>
+                            <Route path="/login" element={(
+                                <>
+                                    {isAuthentified ?
+                                        <>
+                                            <ResponsiveAppBar onThemeChange={setTheme}/>
+                                            <Home/>
+                                        </>
+                                        :
+                                        <LoginPage onSubmitClick={handleSubmitClick}/>
+                                    }
+                                </>
+                            )}>
+                            </Route>
                             <Route path="/register" element={<RegisterPage/>}></Route>
+                            <Route path="/registerMoreInfos/:userId" element={<RegisterMoreInfosPage/>}></Route>
                             <Route path="/*" element={<NotFound/>}></Route>
                         </Routes>
                     </BrowserRouter>

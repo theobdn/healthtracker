@@ -22,17 +22,17 @@ export const usersData: User[] = [
 export const sexeData: Sexe[] = [
     {
         "id": 1,
-        "code": "SEX1",
+        "code": "MAN",
         "label": "Male"
     },
     {
         "id": 2,
-        "code": "SEX2",
+        "code": "WOMAN",
         "label": "Female"
     },
     {
         "id": 3,
-        "code": "SEX3",
+        "code": "UNKNOW",
         "label": "Transgenre"
     }
 ]
@@ -40,17 +40,27 @@ export const sexeData: Sexe[] = [
 export const foodPreferenceData: FoodPreference[] = [
     {
         "id": 1,
-        "code": "FP1",
+        "code": "NONE",
         "label": "Carnivore"
     },
     {
         "id": 2,
-        "code": "FP2",
+        "code": "GLUTENFREE",
         "label": "Vegan"
     },
     {
         "id": 3,
-        "code": "FP3",
+        "code": "VEGE",
+        "label": "Cetogene"
+    },
+    {
+        "id": 3,
+        "code": "LACTOSEFREE",
+        "label": "Cetogene"
+    },
+    {
+        "id": 3,
+        "code": "VEGAN",
         "label": "Cetogene"
     }
 ]

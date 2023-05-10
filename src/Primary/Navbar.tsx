@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,11 +13,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import {useState} from "react";
 import {Divider} from "@mui/material";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import {Image} from "@mui/icons-material";
 import PersonIcon from '@mui/icons-material/Person';
 import {useNavigate} from "react-router-dom";
 
@@ -66,8 +65,10 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
             navigation("/profile")
             handleCloseUserMenu()
         } else if (pageName === "logout") {
-            navigation("/")
+            localStorage.removeItem("HealthTrackerJWT")
             handleCloseUserMenu()
+            navigation("/login")
+            window.location.reload()
         }
     }
 

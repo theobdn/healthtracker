@@ -10,8 +10,6 @@ import axios from "axios";
 
 //Typescript tipage des inputs
 type Inputs = {
-    firstName: string
-    lastName: string
     email: string
     password: string
     confirmPassword: string
@@ -19,8 +17,6 @@ type Inputs = {
 
 //Définition du schéma de validation pour chaque champs avec YUP
 const schemaValidation = yup.object({
-    firstName: yup.string().required("Please enter your name"),
-    lastName: yup.string().required("Please enter your name"),
     email: yup.string().required("Please enter your email"),
     password: yup.string().required("Please enter your password").matches(
         /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
@@ -49,17 +45,16 @@ const RegisterPage = () => {
             "email": data.email
         })
             .then(function (response) {
+                navigate(`/registerMoreInfos/${response.data.id}`)
                 console.log(response)
             })
             .catch(function (error) {
                 console.log(error)
             })
-        console.log(data)
     }
-
     //Fonction reset click
     const handleReset = () => {
-        reset({firstName: "", lastName: "", email: "", password: "", confirmPassword: ""})
+        reset({email: "", password: "", confirmPassword: ""})
     }
 
     const handleNavigationSignIn = () => {
@@ -86,40 +81,6 @@ const RegisterPage = () => {
                         <form style={{margin: "10px", display: "flex", flexDirection: "column", alignItems: "center"}}
                               onSubmit={handleSubmit(onSubmit)}>
                             <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <Controller
-                                        name="firstName"
-                                        control={control}
-                                        render={({field}) =>
-                                            <TextField
-                                                {...field}
-                                                fullWidth
-                                                variant="filled"
-                                                label="First name"
-                                                placeholder="First name..."
-                                                type="text"
-                                                error={!!errors.firstName}
-                                                helperText={errors.firstName?.message}
-                                            />}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Controller
-                                        name="lastName"
-                                        control={control}
-                                        render={({field}) =>
-                                            <TextField
-                                                {...field}
-                                                fullWidth
-                                                variant="filled"
-                                                label="Last name"
-                                                placeholder="Last name..."
-                                                type="text"
-                                                error={!!errors.lastName}
-                                                helperText={errors.lastName?.message}
-                                            />}
-                                    />
-                                </Grid>
                                 <Grid item xs={12}>
                                     <Controller
                                         name="email"
