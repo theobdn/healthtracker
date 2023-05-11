@@ -18,6 +18,9 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import PersonIcon from '@mui/icons-material/Person';
 import {useNavigate} from "react-router-dom";
+import RamenDiningOutlinedIcon from '@mui/icons-material/RamenDiningOutlined';
+import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
+import EqualizerOutlinedIcon from '@mui/icons-material/EqualizerOutlined';
 
 interface ResponsiveAppBarInterface {
     onThemeChange: (isLightTheme: boolean) => void
@@ -51,8 +54,9 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
     }
 
     const handleNavigation = (pageName: string) => {
-        if (pageName === "journal") {
-            navigation("/journal")
+        if (pageName === "/") {
+            navigation("/")
+            handleCloseUserMenu()
         } else if (pageName === "journalHistory") {
             navigation("/journalHistory")
             handleCloseUserMenu()
@@ -76,24 +80,25 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <img src="./logo.png" style={{width: "50px", height: "50px"}}/>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: {xs: 'none', md: 'flex'},
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        HEALTH TRACKER
-                    </Typography>
+                    <Button variant="contained" onClick={() => handleNavigation("/")}>
+                        <img src="./logo.png" style={{width: "50px", height: "50px"}}/>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="a"
+                            sx={{
+                                mr: 2,
+                                display: {xs: 'none', md: 'flex'},
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            HEALTH TRACKER
+                        </Typography>
+                    </Button>
 
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
@@ -106,8 +111,6 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
                         >
                             <MenuIcon/>
                         </IconButton>
-
-                        {/********************************RESPONSIVE MENU LINKS*********************************/}
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav}
@@ -156,28 +159,16 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
 
                     {/********************************DEFAULT MENU LINKS*********************************/}
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        <Button
-                            onClick={() => handleNavigation("journal")}
-                            sx={{my: 2, color: 'white', display: 'block'}}
-                        >
-                            Mon journal
+                        <Button variant="contained" onClick={() => handleNavigation("journalHistory")}>
+                            <RamenDiningOutlinedIcon sx={{marginRight: "5px", marginBottom: "1px"}}/>
+                            Journal
                         </Button>
-                        <Button
-                            onClick={() => handleNavigation("journalHistory")}
-                            sx={{my: 2, color: 'white', display: 'block'}}
-                        >
-                            Historique journal
+                        <Button variant="contained" onClick={() => handleNavigation("recipe")}>
+                            <MenuBookOutlinedIcon sx={{marginRight: "5px", marginBottom: "1px"}}/>
+                            Recettes
                         </Button>
-                        <Button
-                            onClick={() => handleNavigation("recipe")}
-                            sx={{my: 2, color: 'white', display: 'block'}}
-                        >
-                            Mes recettes
-                        </Button>
-                        <Button
-                            onClick={() => handleNavigation("stats")}
-                            sx={{my: 2, color: 'white', display: 'block'}}
-                        >
+                        <Button variant="contained" onClick={() => handleNavigation("stats")}>
+                            <EqualizerOutlinedIcon sx={{marginRight: "5px", marginBottom: "1px"}}/>
                             Statistiques
                         </Button>
                     </Box>

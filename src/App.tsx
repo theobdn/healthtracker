@@ -175,7 +175,7 @@ function App() {
                                     {authenticated && userLogged ?
                                         <>
                                             <ResponsiveAppBar onThemeChange={setTheme}/>
-                                            <RecipePage/>
+                                            <StatsPage/>
                                         </>
                                         :
                                         <StatsPage/>
