@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import {Divider} from "@mui/material";
+import {Divider, Grid} from "@mui/material";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import PersonIcon from '@mui/icons-material/Person';
@@ -80,7 +80,7 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Button variant="contained" onClick={() => handleNavigation("/")}>
+                    <Button variant="contained" onClick={() => handleNavigation("/")} sx={{mr: 1}}>
                         <img src="./logo.png" style={{width: "50px", height: "50px"}}/>
                         <Typography
                             variant="h6"
@@ -159,18 +159,26 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
 
                     {/********************************DEFAULT MENU LINKS*********************************/}
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        <Button variant="contained" onClick={() => handleNavigation("journalHistory")}>
-                            <RamenDiningOutlinedIcon sx={{marginRight: "5px", marginBottom: "1px"}}/>
-                            Journal
-                        </Button>
-                        <Button variant="contained" onClick={() => handleNavigation("recipe")}>
-                            <MenuBookOutlinedIcon sx={{marginRight: "5px", marginBottom: "1px"}}/>
-                            Recettes
-                        </Button>
-                        <Button variant="contained" onClick={() => handleNavigation("stats")}>
-                            <EqualizerOutlinedIcon sx={{marginRight: "5px", marginBottom: "1px"}}/>
-                            Statistiques
-                        </Button>
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <Button variant="contained" onClick={() => handleNavigation("journalHistory")}>
+                                    <RamenDiningOutlinedIcon sx={{marginRight: "5px", marginBottom: "1px"}}/>
+                                    Journal
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button variant="contained" onClick={() => handleNavigation("recipe")}>
+                                    <MenuBookOutlinedIcon sx={{marginRight: "5px", marginBottom: "1px"}}/>
+                                    Recettes
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button variant="contained" onClick={() => handleNavigation("stats")}>
+                                    <EqualizerOutlinedIcon sx={{marginRight: "5px", marginBottom: "1px"}}/>
+                                    Statistiques
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </Box>
 
                     <Box sx={{flexGrow: 0, display: "flex"}}>

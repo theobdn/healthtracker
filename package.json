@@ -9,6 +9,7 @@
     "@hookform/resolvers": "^2.9.10",
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.7",
+    "@mui/x-data-grid": "^6.3.1",
     "@mui/x-date-pickers": "^5.0.15",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
