@@ -12,7 +12,7 @@ const ProfileHeader = () => {
                 <Typography variant="h4" color="secondary" marginLeft="5px">{profilesData[0].name}</Typography>
             </Grid>
             <Grid item>
-                <Typography variant="h4" color="secondary" marginLeft="5px">{profilesData[0].firstName}</Typography>
+                <Typography variant="h4" color="secondary" marginLeft="5px">{profilesData[0].surname}</Typography>
             </Grid>
         </Grid>
     )

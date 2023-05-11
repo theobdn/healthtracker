@@ -21,7 +21,7 @@ const JournalHeader = () => {
             <Box sx={{display: "flex"}}>
                 <Typography variant="h4">Votre journal : </Typography>
                 <Typography variant="h4" color="secondary" marginLeft="5px">{profilesData[0].name}</Typography>
-                <Typography variant="h4" color="secondary" marginLeft="5px">{profilesData[0].firstName}</Typography>
+                <Typography variant="h4" color="secondary" marginLeft="5px">{profilesData[0].surname}</Typography>
             </Box>
             <Box>
                 <Button variant="outlined" onClick={handleCreateMeal}>Créer un nouveau repas</Button>

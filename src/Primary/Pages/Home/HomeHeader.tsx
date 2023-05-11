@@ -1,11 +1,15 @@
 import React from 'react';
-import {Box, Grid, Paper, Typography} from "@mui/material";
-import {profilesData, usersData} from "../../../Secondary/InMemory/data";
+import {Grid, Paper} from "@mui/material";
 import moment from "moment";
 import TextValueField from "../../Utils/TextValueField";
+import {Profile} from "../../../Corelogic/Models/Profile";
 
-const HomeHeader = () => {
-    const profileSelected = profilesData[0]
+interface HomeHeaderInterface {
+    userLogged?: Profile
+}
+
+const HomeHeader = (props: HomeHeaderInterface) => {
+    const {userLogged} = props
 
     return (
         <Paper elevation={1}>
@@ -13,7 +17,7 @@ const HomeHeader = () => {
                 <Grid item>
                     <Grid item>
                         <TextValueField label={"Bienvenue"}
-                                        value={profileSelected.name + " " + profileSelected.firstName}/>
+                                        value={userLogged?.name + " " + userLogged?.surname}/>
                     </Grid>
                 </Grid>
                 <Grid item>

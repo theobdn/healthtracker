@@ -68,36 +68,39 @@ export const foodPreferenceData: FoodPreference[] = [
 export const profilesData: Profile[] = [
     {
         id: 1,
+        userId: 1,
         name: "Doe",
-        firstName: "John",
+        surname: "John",
         sexe: sexeData[0],
         height: 182,
         weight: 88,
-        creationDate: new Date("10/01/2022"),
-        dateOfBirth: new Date("11/17/1998"),
-        foodPreference: foodPreferenceData[0]
+        created_at: new Date("10/01/2022"),
+        birth: new Date("11/17/1998"),
+        food_preference: foodPreferenceData[0]
     },
     {
         id: 2,
+        userId: 2,
         name: "Johnson",
-        firstName: "Boris",
+        surname: "Boris",
         sexe: sexeData[0],
         height: 170,
         weight: 65,
-        creationDate: new Date("05/09/2022"),
-        dateOfBirth: new Date("05/06/2001"),
-        foodPreference: foodPreferenceData[1]
+        created_at: new Date("05/09/2022"),
+        birth: new Date("05/06/2001"),
+        food_preference: foodPreferenceData[1]
     },
     {
         id: 3,
+        userId: 3,
         name: "Kris",
-        firstName: "Sylvie",
+        surname: "Sylvie",
         sexe: sexeData[1],
         height: 160,
         weight: 70,
-        creationDate: new Date("07/25/2022"),
-        dateOfBirth: new Date("04/20/1985"),
-        foodPreference: foodPreferenceData[2]
+        created_at: new Date("07/25/2022"),
+        birth: new Date("04/20/1985"),
+        food_preference: foodPreferenceData[2]
     }
 ]
 

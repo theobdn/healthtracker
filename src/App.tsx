@@ -13,6 +13,7 @@ import JournalPage from "./Primary/Pages/Journal/JournalPage";
 import RecipePage from "./Primary/Pages/Recipe/RecipePage";
 import JournalHystoryPage from "./Primary/Pages/JournalHistory/JournalHystoryPage";
 import RegisterMoreInfosPage from "./Primary/Pages/Register/RegisterMoreInfosPage";
+import axios from "axios";
 
 const darkTheme = createTheme({
     palette: {
@@ -61,8 +62,10 @@ const lightTheme = createTheme({
 })
 
 function App() {
-    const [isLightTheme, setIsLightTheme] = useState<boolean>(false)
-    const [isAuthentified, setIsAuthentified] = useState<boolean>(false)
+    // const navigation = useNavigate()
+    const [isLightTheme, setIsLightTheme] = useState(false)
+    const [authenticated, setAuthenticated] = useState(false)
+    const [userLogged, setUserLogged] = useState(undefined)
 
     useEffect(() => {
         isLightTheme ? localStorage.setItem("HealthTrackerTheme", "lightTheme") : localStorage.setItem("HealthTrackerTheme", "darkTheme")
@@ -78,13 +81,23 @@ function App() {
     }, [isLightTheme])
 
     useEffect(() => {
-        const jwt = localStorage.getItem("HealthTrackerJWT")
-        if (jwt && jwt.length > 10) {
-            setIsAuthentified(true)
-        } else {
-            setIsAuthentified(false)
-        }
-    }, [isAuthentified])
+        axios.get(`http://localhost:8080/api/profil`, {
+            headers: {
+                "Authorization": `${localStorage.getItem("HealthTrackerJWT")}`
+            }
+        })
+            .then(function (response) {
+                setAuthenticated(true)
+                setUserLogged(response.data)
+                console.log(response)
+            })
+            .catch(function (error) {
+                setAuthenticated(false)
+                setUserLogged(undefined)
+                localStorage.removeItem("HealthTrackerJWT")
+                console.log(error)
+            })
+    }, [])
 
     const setTheme = (isLightTheme: boolean) => {
         isLightTheme ? setIsLightTheme(false) : setIsLightTheme(true)
@@ -94,6 +107,11 @@ function App() {
         localStorage.setItem("HealthTrackerJWT", jwt)
     }
 
+    useEffect(() => {
+        console.log(userLogged)
+        console.log(authenticated)
+    }, [authenticated, userLogged])
+
     return (
         <>
             <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
@@ -102,10 +120,10 @@ function App() {
                         <Routes>
                             <Route path="/" element={(
                                 <>
-                                    {isAuthentified ?
+                                    {authenticated && userLogged ?
                                         <>
                                             <ResponsiveAppBar onThemeChange={setTheme}/>
-                                            <Home/>
+                                            <Home userLoggedProfile={userLogged}/>
                                         </>
                                         :
                                         <LoginPage onSubmitClick={handleSubmitClick}/>
@@ -115,45 +133,75 @@ function App() {
                             </Route>
                             <Route path="/journal" element={(
                                 <>
-                                    <ResponsiveAppBar onThemeChange={setTheme}/>
-                                    <JournalPage/>
+                                    {authenticated && userLogged ?
+                                        <>
+                                            <ResponsiveAppBar onThemeChange={setTheme}/>
+                                            <JournalPage/>
+                                        </>
+                                        :
+                                        <LoginPage onSubmitClick={handleSubmitClick}/>
+                                    }
                                 </>
                             )}>
                             </Route>
                             <Route path="/journalHistory" element={(
                                 <>
-                                    <ResponsiveAppBar onThemeChange={setTheme}/>
-                                    <JournalHystoryPage/>
+                                    {authenticated && userLogged ?
+                                        <>
+                                            <ResponsiveAppBar onThemeChange={setTheme}/>
+                                            <JournalPage/>
+                                        </>
+                                        :
+                                        <JournalHystoryPage/>
+                                    }
                                 </>
                             )}>
                             </Route>
                             <Route path="/recipe" element={(
                                 <>
-                                    <ResponsiveAppBar onThemeChange={setTheme}/>
-                                    <RecipePage/>
+                                    {authenticated && userLogged ?
+                                        <>
+                                            <ResponsiveAppBar onThemeChange={setTheme}/>
+                                            <RecipePage/>
+                                        </>
+                                        :
+                                        <JournalHystoryPage/>
+                                    }
                                 </>
                             )}>
                             </Route>
                             <Route path="/stats" element={(
                                 <>
-                                    <ResponsiveAppBar onThemeChange={setTheme}/>
-                                    <StatsPage/>
+                                    {authenticated && userLogged ?
+                                        <>
+                                            <ResponsiveAppBar onThemeChange={setTheme}/>
+                                            <RecipePage/>
+                                        </>
+                                        :
+                                        <StatsPage/>
+                                    }
                                 </>
                             )}>
                             </Route>
                             <Route path="/profile" element={(
                                 <>
-                                    <ResponsiveAppBar onThemeChange={setTheme}/>
-                                    <ProfilePage/>
+                                    {authenticated && userLogged ?
+                                        <>
+                                            <ResponsiveAppBar onThemeChange={setTheme}/>
+                                            <ProfilePage/>
+                                        </>
+                                        :
+                                        <LoginPage onSubmitClick={handleSubmitClick}/>
+                                    }
                                 </>
                             )}>
                             </Route>
                             <Route path="/login" element={(
                                 <>
-                                    {isAuthentified ?
+                                    {authenticated && userLogged ?
                                         <>
                                             <ResponsiveAppBar onThemeChange={setTheme}/>
-                                            <Home/>
+                                            <Home userLoggedProfile={userLogged}/>
                                         </>
                                         :
                                         <LoginPage onSubmitClick={handleSubmitClick}/>
