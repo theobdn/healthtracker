@@ -49,7 +49,9 @@ const RegisterMoreInfosPage = () => {
             "surname": data.firstName,
             "user_id": params.userId,
             "weight": data.weight
-        })
+        },{headers: {
+            "Authorization": `Bearer ${localStorage.getItem("HealthTrackerJWT")}`
+        }})
             .then(function (response) {
                 navigate("/")
                 window.location.reload()
