@@ -7,6 +7,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {Aliment} from "../../../Corelogic/Models/Aliment";
 import TextValueField from "../../Utils/TextValueField";
 import SearchBar from "../../Utils/SearchBar";
+import {searchFood} from "../../../Secondary/Api/AxiosRequests/Food";
 
 interface MealAdderInterface {
     onConfirmClick: () => void
@@ -14,18 +15,22 @@ interface MealAdderInterface {
 
 export default function MealAdder(props: MealAdderInterface) {
     const {onConfirmClick} = props
-    const [searchQuery, setSearchQuery] = useState("")
+    const [searchQuery, setSearchQuery] = useState("banana")
     const [allAliments, setAllAliments] = useState<Aliment[]>()
 
     useEffect(() => {
-        fetch('http://localhost:3001/aliments')
-            .then((res) => res.json())
-            .then((result) => {
-                // we received our list of allMeals
-                console.log(result)
-                setAllAliments(result)
-            })
-    }, [])
+        const jwtToken = localStorage.getItem('HealthTrackerJWT')
+
+        if (jwtToken) {
+            searchFood(searchQuery, jwtToken)
+                .then(function (response) {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        }
+    }, [searchQuery])
 
     const handleChangeSearchBar = (value: string) => {
         setSearchQuery(value)

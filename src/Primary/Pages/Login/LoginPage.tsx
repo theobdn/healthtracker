@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import * as yup from "yup";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -6,10 +6,12 @@ import {Button, Divider, Grid, IconButton, InputAdornment, Paper, TextField, Typ
 import {useNavigate} from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import axios from "axios";
+import {signIn} from "../../../Secondary/Api/AxiosRequests/AuthLogin";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../Secondary/Redux/Store/store";
 
 //Typescript tipage des inputs
-type Inputs = {
+export type InputsLogin = {
     email: string
     password: string
 }
@@ -29,22 +31,27 @@ interface LoginPageInterface {
 
 const LoginPage = (props: LoginPageInterface) => {
     const {onSubmitClick} = props
+    const userLogged = useSelector((state: RootState) => state.profile.user)
     const navigate = useNavigate()
     const [visibility, setVisibility] = useState<boolean>(false)
-    const [isLogged, setIsLogged] = useState<boolean>(false)
 
-    const {handleSubmit, reset, formState: {errors}, control} = useForm<Inputs>(
+    useEffect(() => {
+        if (userLogged) {
+            navigate("/")
+        }
+    })
+
+    const {handleSubmit, reset, formState: {errors}, control} = useForm<InputsLogin>(
         {
             resolver: yupResolver(schemaValidation),
         }
     )
 
     //Fonction submit click
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        axios.post("http://localhost:8080/auth/signin", data)
+    const onSubmit: SubmitHandler<InputsLogin> = (data) => {
+        signIn(data)
             .then(function (response) {
                 onSubmitClick(response.data.jwt)
-                window.location.reload()
             })
             .catch(function (error) {
                 console.log(error)

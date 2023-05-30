@@ -5,7 +5,7 @@ import TextValueField from "../../Utils/TextValueField";
 import {Profile} from "../../../Corelogic/Models/Profile";
 
 interface HomeHeaderInterface {
-    userLogged?: Profile
+    userLogged?: Profile | null
 }
 
 const HomeHeader = (props: HomeHeaderInterface) => {

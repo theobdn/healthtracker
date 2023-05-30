@@ -6,10 +6,10 @@ import {Button, Divider, Grid, IconButton, InputAdornment, Paper, TextField, Typ
 import {useNavigate} from "react-router-dom";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import axios from "axios";
+import {signUp} from "../../../Secondary/Api/AxiosRequests/AuthLogin";
 
 //Typescript tipage des inputs
-type Inputs = {
+export type InputsRegister = {
     email: string
     password: string
     confirmPassword: string
@@ -32,18 +32,15 @@ const RegisterPage = () => {
         confirmPassword: false
     })
 
-    const {handleSubmit, reset, formState: {errors}, control} = useForm<Inputs>(
+    const {handleSubmit, reset, formState: {errors}, control} = useForm<InputsRegister>(
         {
             resolver: yupResolver(schemaValidation),
         }
     )
 
     //Fonction submit click
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        axios.post('http://localhost:8080/auth/signup', {
-            "password": data.password,
-            "email": data.email
-        })
+    const onSubmit: SubmitHandler<InputsRegister> = (data) => {
+        signUp(data)
             .then(function (response) {
                 navigate(`/registerMoreInfos/${response.data.id}`)
                 console.log(response)

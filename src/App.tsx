@@ -3,17 +3,21 @@ import './App.css';
 import Home from "./Primary/Pages/Home/Home";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import NotFound from "./Primary/Pages/NotFound";
-import ResponsiveAppBar from "./Primary/Navbar";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
-import StatsPage from "./Primary/Pages/Stats/StatsPage";
-import ProfilePage from "./Primary/Pages/Profile/ProfilePage";
 import RegisterPage from "./Primary/Pages/Register/RegisterPage";
 import LoginPage from "./Primary/Pages/Login/LoginPage";
 import JournalPage from "./Primary/Pages/Journal/JournalPage";
-import RecipePage from "./Primary/Pages/Recipe/RecipePage";
-import JournalHystoryPage from "./Primary/Pages/JournalHistory/JournalHystoryPage";
 import RegisterMoreInfosPage from "./Primary/Pages/Register/RegisterMoreInfosPage";
-import axios from "axios";
+import {getProfile} from "./Secondary/Api/AxiosRequests/AuthLogin";
+import {setUser} from "./Secondary/Redux/Slices/profileSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "./Secondary/Redux/Store/store";
+import ProtectedRoute from "./Primary/Utils/ProtectedRoutes";
+import JournalHystoryPage from "./Primary/Pages/JournalHistory/JournalHystoryPage";
+import RecipePage from "./Primary/Pages/Recipe/RecipePage";
+import StatsPage from "./Primary/Pages/Stats/StatsPage";
+import ProfilePage from "./Primary/Pages/Profile/ProfilePage";
+import Navbar from "./Primary/Navbar";
 
 const darkTheme = createTheme({
     palette: {
@@ -62,10 +66,9 @@ const lightTheme = createTheme({
 })
 
 function App() {
-    // const navigation = useNavigate()
+    const dispatch = useDispatch()
+    const userLogged = useSelector((state: RootState) => state.profile.user)
     const [isLightTheme, setIsLightTheme] = useState(false)
-    const [authenticated, setAuthenticated] = useState(false)
-    const [userLogged, setUserLogged] = useState(undefined)
 
     useEffect(() => {
         isLightTheme ? localStorage.setItem("HealthTrackerTheme", "lightTheme") : localStorage.setItem("HealthTrackerTheme", "darkTheme")
@@ -81,24 +84,20 @@ function App() {
     }, [isLightTheme])
 
     useEffect(() => {
-        console.log(localStorage.getItem("HealthTrackerJWT"))
-        axios.get(`http://localhost:8080/api/profil`, {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("HealthTrackerJWT")}`
-            }
-        })
-            .then(function (response) {
-                setAuthenticated(true)
-                setUserLogged(response.data)
-                console.log(response)
-            })
-            .catch(function (error) {
-                setAuthenticated(false)
-                setUserLogged(undefined)
-                localStorage.removeItem("HealthTrackerJWT")
-                console.log(error)
-            })
-    }, [])
+        const jwtToken = localStorage.getItem('HealthTrackerJWT')
+
+        if (jwtToken) {
+            getProfile(jwtToken)
+                .then(function (response) {
+                    dispatch(setUser(response.data))
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    dispatch(setUser(null))
+                    console.log(error)
+                });
+        }
+    }, [dispatch])
 
     const setTheme = (isLightTheme: boolean) => {
         isLightTheme ? setIsLightTheme(false) : setIsLightTheme(true)
@@ -106,12 +105,17 @@ function App() {
 
     const handleSubmitClick = (jwt: string) => {
         localStorage.setItem("HealthTrackerJWT", jwt)
-    }
 
-    useEffect(() => {
-        console.log(userLogged)
-        console.log(authenticated)
-    }, [authenticated, userLogged])
+        getProfile(jwt)
+            .then(function (response) {
+                dispatch(setUser(response.data))
+                console.log("userLogged : ", userLogged, response)
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+    }
 
     return (
         <>
@@ -119,100 +123,58 @@ function App() {
                 <CssBaseline>
                     <BrowserRouter>
                         <Routes>
-                            <Route path="/" element={(
-                                <>
-                                    {authenticated && userLogged ?
-                                        <>
-                                            <ResponsiveAppBar onThemeChange={setTheme}/>
-                                            <Home userLoggedProfile={userLogged}/>
-                                        </>
-                                        :
-                                        <LoginPage onSubmitClick={handleSubmitClick}/>
-                                    }
-                                </>
-                            )}>
+                            <Route path='/' element={<ProtectedRoute/>}>
+                                <Route path='/' element={
+                                    <>
+                                        <Navbar onThemeChange={setTheme}/>
+                                        <Home userLoggedProfile={userLogged}/>
+                                    </>
+                                }/>
                             </Route>
-                            <Route path="/journal" element={(
-                                <>
-                                    {authenticated && userLogged ?
-                                        <>
-                                            <ResponsiveAppBar onThemeChange={setTheme}/>
-                                            <JournalPage/>
-                                        </>
-                                        :
-                                        <LoginPage onSubmitClick={handleSubmitClick}/>
-                                    }
-                                </>
-                            )}>
+                            <Route path='/journal' element={<ProtectedRoute/>}>
+                                <Route path='/journal' element={
+                                    <>
+                                        <Navbar onThemeChange={setTheme}/>
+                                        <JournalPage/>
+                                    </>
+                                }/>
                             </Route>
-                            <Route path="/journalHistory" element={(
-                                <>
-                                    {authenticated && userLogged ?
-                                        <>
-                                            <ResponsiveAppBar onThemeChange={setTheme}/>
-                                            <JournalPage/>
-                                        </>
-                                        :
+                            <Route path='/journalHistory' element={<ProtectedRoute/>}>
+                                <Route path='/journalHistory' element={
+                                    <>
+                                        <Navbar onThemeChange={setTheme}/>
                                         <JournalHystoryPage/>
-                                    }
-                                </>
-                            )}>
+                                    </>
+                                }/>
                             </Route>
-                            <Route path="/recipe" element={(
-                                <>
-                                    {authenticated && userLogged ?
-                                        <>
-                                            <ResponsiveAppBar onThemeChange={setTheme}/>
-                                            <RecipePage/>
-                                        </>
-                                        :
-                                        <JournalHystoryPage/>
-                                    }
-                                </>
-                            )}>
+                            <Route path='/recipe' element={<ProtectedRoute/>}>
+                                <Route path='/recipe' element={
+                                    <>
+                                        <Navbar onThemeChange={setTheme}/>
+                                        <RecipePage/>
+                                    </>
+                                }/>
                             </Route>
-                            <Route path="/stats" element={(
-                                <>
-                                    {authenticated && userLogged ?
-                                        <>
-                                            <ResponsiveAppBar onThemeChange={setTheme}/>
-                                            <StatsPage/>
-                                        </>
-                                        :
+                            <Route path='/stats' element={<ProtectedRoute/>}>
+                                <Route path='/stats' element={
+                                    <>
+                                        <Navbar onThemeChange={setTheme}/>
                                         <StatsPage/>
-                                    }
-                                </>
-                            )}>
+                                    </>
+                                }/>
                             </Route>
-                            <Route path="/profile" element={(
-                                <>
-                                    {authenticated && userLogged ?
-                                        <>
-                                            <ResponsiveAppBar onThemeChange={setTheme}/>
-                                            <ProfilePage/>
-                                        </>
-                                        :
-                                        <LoginPage onSubmitClick={handleSubmitClick}/>
-                                    }
-                                </>
-                            )}>
+                            <Route path='/profile' element={<ProtectedRoute/>}>
+                                <Route path='/profile' element={
+                                    <>
+                                        <Navbar onThemeChange={setTheme}/>
+                                        <ProfilePage/>
+                                    </>
+                                }/>
                             </Route>
-                            <Route path="/login" element={(
-                                <>
-                                    {authenticated && userLogged ?
-                                        <>
-                                            <ResponsiveAppBar onThemeChange={setTheme}/>
-                                            <Home userLoggedProfile={userLogged}/>
-                                        </>
-                                        :
-                                        <LoginPage onSubmitClick={handleSubmitClick}/>
-                                    }
-                                </>
-                            )}>
-                            </Route>
-                            <Route path="/register" element={<RegisterPage/>}></Route>
-                            <Route path="/registerMoreInfos/:userId" element={<RegisterMoreInfosPage/>}></Route>
-                            <Route path="/*" element={<NotFound/>}></Route>
+                            <Route path="/login" element={<LoginPage onSubmitClick={handleSubmitClick}/>}/>
+                            <Route path="/register" element={<RegisterPage/>}/>
+                            <Route path="/registerMoreInfos/:userId" element={<RegisterMoreInfosPage/>}/>
+                            <Route path="/*" element={<NotFound/>}/>
                         </Routes>
                     </BrowserRouter>
                 </CssBaseline>

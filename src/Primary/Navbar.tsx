@@ -21,12 +21,15 @@ import {useNavigate} from "react-router-dom";
 import RamenDiningOutlinedIcon from '@mui/icons-material/RamenDiningOutlined';
 import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import EqualizerOutlinedIcon from '@mui/icons-material/EqualizerOutlined';
+import {useDispatch} from "react-redux";
+import {setUser} from "../Secondary/Redux/Slices/profileSlice";
 
 interface ResponsiveAppBarInterface {
     onThemeChange: (isLightTheme: boolean) => void
 }
 
 const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
+    const dispatch = useDispatch()
     const navigation = useNavigate()
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
@@ -70,9 +73,9 @@ const ResponsiveAppBar = (props: ResponsiveAppBarInterface) => {
             handleCloseUserMenu()
         } else if (pageName === "logout") {
             localStorage.removeItem("HealthTrackerJWT")
+            dispatch(setUser(null))
             handleCloseUserMenu()
             navigation("/login")
-            window.location.reload()
         }
     }
 

@@ -17,13 +17,13 @@ import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 interface HomeInterface {
-    userLoggedProfile: Profile
+    userLoggedProfile: Profile | null
 }
 
 const Home = (props: HomeInterface) => {
     const {userLoggedProfile} = props
     const moment = require('moment')
-    const [userLogged, setUserLogged] = React.useState<Profile>(userLoggedProfile)
+    const [userLogged, setUserLogged] = React.useState<Profile | null>(userLoggedProfile)
 
     return (
         <>
@@ -44,33 +44,33 @@ const Home = (props: HomeInterface) => {
                                 <Grid item container>
                                     <CakeIcon sx={{marginRight: "7px"}}/>
                                     <TextValueField label="Birth date"
-                                                    value={moment(userLogged.birth).format("DD/MM/YYYY")}/>
+                                                    value={moment(userLogged?.birth).format("DD/MM/YYYY")}/>
                                 </Grid>
                                 <Grid item container>
                                     <HeightIcon sx={{marginRight: "7px"}}/>
-                                    <TextValueField label="Height" value={userLogged.height}/>
+                                    <TextValueField label="Height" value={userLogged?.height}/>
                                 </Grid>
                                 <Grid item container>
                                     <MonitorWeightIcon sx={{marginRight: "7px"}}/>
-                                    <TextValueField label="Weight" value={userLogged.weight}/>
+                                    <TextValueField label="Weight" value={userLogged?.weight}/>
                                 </Grid>
                                 <Grid item container>
                                     <CalendarMonthIcon sx={{marginRight: "7px"}}/>
                                     <TextValueField label="Creation date"
-                                                    value={moment(userLogged.created_at).format("DD/MM/YYYY")}/>
+                                                    value={moment(userLogged?.created_at).format("DD/MM/YYYY")}/>
                                 </Grid>
                                 <Grid item container>
                                     <PersonIcon sx={{marginRight: "7px"}}/>
                                     <TextValueField label="Sexe"
-                                                    value={String(userLogged.sexe)}/>
+                                                    value={String(userLogged?.sexe)}/>
                                 </Grid>
                                 <Grid item container>
                                     <LocalDiningIcon sx={{marginRight: "7px"}}/>
-                                    <TextValueField label="Diet" value={String(userLogged.food_preference)}/>
+                                    <TextValueField label="Diet" value={String(userLogged?.food_preference)}/>
                                 </Grid>
                                 <Grid item container>
                                     <FlagIcon sx={{marginRight: "7px"}}/>
-                                    <TextValueField label="Weight objective" value={userLogged.weight}/>
+                                    <TextValueField label="Weight objective" value={userLogged?.weight}/>
                                 </Grid>
                             </Grid>
                         </Paper>

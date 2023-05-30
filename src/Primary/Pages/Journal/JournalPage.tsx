@@ -1,15 +1,7 @@
 import React, {useState} from 'react';
-import {
-    Box,
-    Button, Grid,
-    Paper,
-    Step,
-    StepLabel,
-    Stepper, TextField,
-    Typography
-} from "@mui/material";
+import {Box, Button, Grid, Paper, Step, StepLabel, Stepper, Typography} from "@mui/material";
 import MealPicker from "./MealPicker";
-import AlimentAdder from "./AlimentAdder";
+import MealAdder from "./MealAdder";
 
 const JournalPage = () => {
     const steps = ['Choisir un type de repas', 'Choisir les aliments', 'Validation du repas']
@@ -80,7 +72,7 @@ const JournalPage = () => {
                 }
                 {activeStep === 1 &&
                     <Grid item container p={3}>
-                        <AlimentAdder/>
+                        <MealAdder onConfirmClick={handleConfirmAlimentsAddition}/>
                     </Grid>
                 }
                 {activeStep === 2 && (
