@@ -81,9 +81,10 @@ function App() {
     }, [isLightTheme])
 
     useEffect(() => {
+        console.log(localStorage.getItem("HealthTrackerJWT"))
         axios.get(`http://localhost:8080/api/profil`, {
             headers: {
-                "Authorization": `${localStorage.getItem("HealthTrackerJWT")}`
+                "Authorization": `Bearer ${localStorage.getItem("HealthTrackerJWT")}`
             }
         })
             .then(function (response) {
