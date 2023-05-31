@@ -8,7 +8,7 @@ import RegisterPage from "./Primary/Pages/Register/RegisterPage";
 import LoginPage from "./Primary/Pages/Login/LoginPage";
 import JournalPage from "./Primary/Pages/Journal/JournalPage";
 import RegisterMoreInfosPage from "./Primary/Pages/Register/RegisterMoreInfosPage";
-import {getProfile} from "./Secondary/Api/AxiosRequests/AuthLogin";
+import {getProfile} from "./Secondary/Api/AxiosRequests/ProfilRequests";
 import {setUser} from "./Secondary/Redux/Slices/profileSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./Secondary/Redux/Store/store";
@@ -89,8 +89,8 @@ function App() {
         if (jwtToken) {
             getProfile(jwtToken)
                 .then(function (response) {
+                    console.log(response.data)
                     dispatch(setUser(response.data))
-                    console.log(response)
                 })
                 .catch(function (error) {
                     dispatch(setUser(null))
@@ -110,7 +110,6 @@ function App() {
             .then(function (response) {
                 dispatch(setUser(response.data))
                 console.log("userLogged : ", userLogged, response)
-                console.log(response)
             })
             .catch(function (error) {
                 console.log(error)
@@ -167,7 +166,7 @@ function App() {
                                 <Route path='/profile' element={
                                     <>
                                         <Navbar onThemeChange={setTheme}/>
-                                        <ProfilePage/>
+                                        <ProfilePage userLoggedProfile={userLogged}/>
                                     </>
                                 }/>
                             </Route>

@@ -68,7 +68,7 @@ export const foodPreferenceData: FoodPreference[] = [
 export const profilesData: Profile[] = [
     {
         id: 1,
-        userId: 1,
+        user_id: 1,
         name: "Doe",
         surname: "John",
         sexe: sexeData[0],
@@ -80,7 +80,7 @@ export const profilesData: Profile[] = [
     },
     {
         id: 2,
-        userId: 2,
+        user_id: 2,
         name: "Johnson",
         surname: "Boris",
         sexe: sexeData[0],
@@ -92,7 +92,7 @@ export const profilesData: Profile[] = [
     },
     {
         id: 3,
-        userId: 3,
+        user_id: 3,
         name: "Kris",
         surname: "Sylvie",
         sexe: sexeData[1],

@@ -8,7 +8,7 @@ export interface FoodPreference extends Parameter {
 
 export interface Profile {
     id: number,
-    userId: number,
+    user_id: number,
     name: string,
     surname: string,
     sexe: Sexe,

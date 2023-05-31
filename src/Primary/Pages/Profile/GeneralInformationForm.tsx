@@ -1,16 +1,5 @@
 import React, {useState} from 'react';
-import {
-    Box,
-    Button,
-    Grid,
-    IconButton,
-    InputAdornment,
-    MenuItem,
-    Paper,
-    Select, Stack,
-    TextField,
-    Typography
-} from "@mui/material";
+import {Button, Grid, MenuItem, TextField, Typography} from "@mui/material";
 import * as yup from "yup";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -20,15 +9,19 @@ import {DesktopDatePicker} from "@mui/x-date-pickers/DesktopDatePicker";
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {AdapterMoment} from '@mui/x-date-pickers/AdapterMoment';
 import moment from "moment";
+import {Profile, Sexe} from "../../../Corelogic/Models/Profile";
+import {updateProfile} from "../../../Secondary/Api/AxiosRequests/ProfilRequests";
+import {setUser} from "../../../Secondary/Redux/Slices/profileSlice";
+import {useDispatch} from "react-redux";
 
-type InputsProfilePage = {
+export type InputsProfilePage = {
     firstName: string
     lastName: string
     email: string
     height: number
     weight: number
-    sex: boolean
-    birthDate: string
+    sex: Sexe
+    birthDate: Date
     regimen: string
     objective: string
     weightObjective: number
@@ -38,20 +31,34 @@ type InputsProfilePage = {
 const schemaValidation = yup.object({
     firstName: yup.string().required("Please enter your name"),
     lastName: yup.string().required("Please enter your name"),
-    email: yup.string().required("Please enter your email"),
+    // email: yup.string().required("Please enter your email"),
     height: yup.number().required("Please enter your height").max(210).min(100),
     weight: yup.number().required("Please enter your weight").max(300).min(30),
-    sex: yup.boolean().required("Please confirm your sex"),
-    birthdate: yup.date().required("Please enter your birth date"),
-    regimen: yup.object().required("Please enter your regimen"),
-    objective: yup.object().required("Please enter your objective"),
-    weightObjective: yup.object().required("Please enter your weight objective")
+    // sex: yup.boolean().required("Please confirm your sex"),
+    // birthdate: yup.date().required("Please enter your birth date"),
+    // regimen: yup.object().required("Please enter your regimen"),
+    // objective: yup.object().required("Please enter your objective"),
+    // weightObjective: yup.object().required("Please enter your weight objective")
 }).required();
 
-const GeneralInformationForm = () => {
+interface GeneralInformationFormInterface {
+    userLoggedProfile: Profile | null
+}
+
+const GeneralInformationForm = (props: GeneralInformationFormInterface) => {
+    const dispatch = useDispatch()
+    const {userLoggedProfile} = props
     const {handleSubmit, reset, formState: {errors}, control} = useForm<InputsProfilePage>(
         {
             resolver: yupResolver(schemaValidation),
+            defaultValues: {
+                lastName: userLoggedProfile?.name,
+                firstName: userLoggedProfile?.surname,
+                birthDate: userLoggedProfile?.birth as Date,
+                sex: userLoggedProfile?.sexe,
+                weight: userLoggedProfile?.weight,
+                height: userLoggedProfile?.height
+            }
         }
     )
     const [value, setValue] = useState(moment())
@@ -62,7 +69,15 @@ const GeneralInformationForm = () => {
 
     //Fonction submit click
     const onSubmit: SubmitHandler<InputsProfilePage> = (data) => {
-        console.log(data)
+        const jwtToken = localStorage.getItem('HealthTrackerJWT')
+
+        updateProfile(String(userLoggedProfile?.user_id), data, jwtToken)
+            .then(function (response) {
+                dispatch(setUser(response.data))
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 
     //Fonction reset click
@@ -149,21 +164,6 @@ const GeneralInformationForm = () => {
                                     renderInput={(params) => <TextField {...params} fullWidth/>}
                                 />
                             </LocalizationProvider>
-                            {/*<Controller*/}
-                            {/*    name="birthDate"*/}
-                            {/*    control={control}*/}
-                            {/*    render={({field}) =>*/}
-                            {/*        <TextField*/}
-                            {/*            {...field}*/}
-                            {/*            fullWidth*/}
-                            {/*            label="Birth Date"*/}
-                            {/*            variant="filled"*/}
-                            {/*            placeholder="Birth date..."*/}
-                            {/*            type="date"*/}
-                            {/*            error={!!errors.birthDate}*/}
-                            {/*            helperText={errors.birthDate?.message}*/}
-                            {/*        />}*/}
-                            {/*/>*/}
                         </Grid>
                         <Grid item md={4}>
                             <Controller
@@ -259,7 +259,7 @@ const GeneralInformationForm = () => {
                             <Button type="submit" variant="contained">Submit</Button>
                         </Grid>
                         <Grid item>
-                            <Button onClick={handleReset} color="error" variant="contained">Reset</Button>
+                            <Button type="reset" onClick={handleReset} color="error" variant="contained">Reset</Button>
                         </Grid>
                     </Grid>
                 </form>

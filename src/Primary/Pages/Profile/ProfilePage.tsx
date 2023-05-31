@@ -1,26 +1,33 @@
-import React, {useState} from 'react';
-import ProfileHeader from "./ProfileHeader";
+import React from 'react';
 import GeneralInformationForm from "./GeneralInformationForm";
 import PasswordForm from "./PasswordForm";
-import {Box, Grid, Paper} from "@mui/material";
+import {Grid, Paper} from "@mui/material";
+import {Profile} from "../../../Corelogic/Models/Profile";
+import Container from "@mui/material/Container";
 
-const ProfilePage = () => {
+interface ProfilePageInterface {
+    userLoggedProfile: Profile | null
+}
+
+const ProfilePage = (props: ProfilePageInterface) => {
+    const {userLoggedProfile} = props
 
     return (
         <>
-            <ProfileHeader/>
-            <Grid container spacing={2} px={3}>
-                <Grid item lg={8} md={12}>
-                    <Paper>
-                        <GeneralInformationForm/>
-                    </Paper>
+            <Container maxWidth="xl">
+                <Grid container spacing={1} px={3} py={1}>
+                    <Grid item lg={12}>
+                        <Paper>
+                            <GeneralInformationForm userLoggedProfile={userLoggedProfile}/>
+                        </Paper>
+                    </Grid>
+                    <Grid item lg={12}>
+                        <Paper>
+                            <PasswordForm/>
+                        </Paper>
+                    </Grid>
                 </Grid>
-                <Grid item lg={4} md={12}>
-                    <Paper>
-                        <PasswordForm/>
-                    </Paper>
-                </Grid>
-            </Grid>
+            </Container>
         </>
     );
 };
