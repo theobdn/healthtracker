@@ -6,7 +6,7 @@ import {Button, Divider, Grid, IconButton, InputAdornment, Paper, TextField, Typ
 import {useNavigate} from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import {signIn} from "../../../Secondary/Api/AxiosRequests/AuthLogin";
+import {signIn} from "../../../Secondary/Api/AxiosRequests/AuthLoginRequests";
 import {useSelector} from "react-redux";
 import {RootState} from "../../../Secondary/Redux/Store/store";
 

@@ -3,13 +3,13 @@ import {Alert, Autocomplete, Button, Divider, Grid, Paper, TextField, Typography
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
-import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 import {Parameter} from "../../../Corelogic/Models/Parameter";
 import {foodPreferenceData, sexeData} from "../../../Secondary/InMemory/data";
+import {createProfile} from "../../../Secondary/Api/AxiosRequests/ProfilRequests";
 
 //Typescript tipage des inputs
-type Inputs = {
+export type Inputs = {
     name: string
     firstName: string
     birthDate: Date | null
@@ -40,18 +40,7 @@ const RegisterMoreInfosPage = () => {
 
     //Fonction submit click
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        axios.post(`http://localhost:8080/api/profil`, {
-            "birth": data.birthDate,
-            "food_preference": data.foodPreference,
-            "height": data.height,
-            "name": data.name,
-            "sexe": data.gender,
-            "surname": data.firstName,
-            "user_id": params.userId,
-            "weight": data.weight
-        },{headers: {
-            "Authorization": `Bearer ${localStorage.getItem("HealthTrackerJWT")}`
-        }})
+        createProfile(data, Number(params.userId))
             .then(function (response) {
                 navigate("/")
                 window.location.reload()

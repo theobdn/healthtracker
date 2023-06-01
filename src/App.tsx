@@ -87,9 +87,8 @@ function App() {
         const jwtToken = localStorage.getItem('HealthTrackerJWT')
 
         if (jwtToken) {
-            getProfile(jwtToken)
+            getProfile()
                 .then(function (response) {
-                    console.log(response.data)
                     dispatch(setUser(response.data))
                 })
                 .catch(function (error) {
@@ -106,7 +105,7 @@ function App() {
     const handleSubmitClick = (jwt: string) => {
         localStorage.setItem("HealthTrackerJWT", jwt)
 
-        getProfile(jwt)
+        getProfile()
             .then(function (response) {
                 dispatch(setUser(response.data))
                 console.log("userLogged : ", userLogged, response)

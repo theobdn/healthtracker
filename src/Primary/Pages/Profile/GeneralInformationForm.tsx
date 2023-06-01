@@ -69,9 +69,7 @@ const GeneralInformationForm = (props: GeneralInformationFormInterface) => {
 
     //Fonction submit click
     const onSubmit: SubmitHandler<InputsProfilePage> = (data) => {
-        const jwtToken = localStorage.getItem('HealthTrackerJWT')
-
-        updateProfile(String(userLoggedProfile?.user_id), data, jwtToken)
+        updateProfile(String(userLoggedProfile?.user_id), data)
             .then(function (response) {
                 dispatch(setUser(response.data))
             })

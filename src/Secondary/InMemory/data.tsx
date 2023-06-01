@@ -1,6 +1,6 @@
 import {User} from "../../Corelogic/Models/User";
 import {FoodPreference, Profile, Sexe} from "../../Corelogic/Models/Profile";
-import {Aliment, MealType} from "../../Corelogic/Models/Aliment";
+import {MealType} from "../../Corelogic/Models/Aliment";
 import {Parameter} from "../../Corelogic/Models/Parameter";
 
 /** USER & PROFILE **/
@@ -143,50 +143,6 @@ export const mealType: MealType[] = [
         id: 4,
         code: "MT4",
         label: "Snack"
-    }
-]
-
-export const alimentsData: Aliment[] = [
-    {
-        id: 1,
-        label: "Banana",
-        weight: 400,
-        caloriesPerWeight: 350,
-        family: alimentsFamilyData[0]
-    },
-    {
-        id: 2,
-        label: "Apple",
-        weight: 350,
-        caloriesPerWeight: 300,
-        family: alimentsFamilyData[1]
-    },
-    {
-        id: 3,
-        label: "Peach",
-        weight: 200,
-        caloriesPerWeight: 250,
-        family: alimentsFamilyData[2]
-    }, {
-        id: 4,
-        label: "Cake",
-        weight: 400,
-        caloriesPerWeight: 350,
-        family: alimentsFamilyData[0]
-    },
-    {
-        id: 5,
-        label: "Chips",
-        weight: 350,
-        caloriesPerWeight: 300,
-        family: alimentsFamilyData[1]
-    },
-    {
-        id: 6,
-        label: "Pizza",
-        weight: 200,
-        caloriesPerWeight: 250,
-        family: alimentsFamilyData[2]
     }
 ]
 

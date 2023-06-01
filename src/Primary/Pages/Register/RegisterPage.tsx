@@ -6,7 +6,7 @@ import {Button, Divider, Grid, IconButton, InputAdornment, Paper, TextField, Typ
 import {useNavigate} from "react-router-dom";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import {signUp} from "../../../Secondary/Api/AxiosRequests/AuthLogin";
+import {signUp} from "../../../Secondary/Api/AxiosRequests/AuthLoginRequests";
 
 //Typescript tipage des inputs
 export type InputsRegister = {
