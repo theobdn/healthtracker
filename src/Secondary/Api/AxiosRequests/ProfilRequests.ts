@@ -44,3 +44,13 @@ export function updateProfile(userId: string, data: InputsProfilePage) {
         }
     })
 }
+
+export function changePassword(userId: string, password: string, jwtToken: string | null) {
+    return axios.patch(`http://localhost:8080/api/user/${userId}`, {
+        password: password
+    }, {
+        headers: {
+            'Authorization': `Bearer ${jwtToken}`
+        }
+    })
+}

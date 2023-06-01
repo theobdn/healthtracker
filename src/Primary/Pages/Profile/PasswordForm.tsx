@@ -8,6 +8,13 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import PasswordIcon from '@mui/icons-material/Password';
 import InfoIcon from "@mui/icons-material/Info";
 import {sexeData} from "../../../Secondary/InMemory/data";
+import { changePassword } from '../../../Secondary/Api/AxiosRequests/ProfilRequests';
+import { Profile } from '../../../Corelogic/Models/Profile';
+import { signIn } from '../../../Secondary/Api/AxiosRequests/AuthLogin';
+
+interface PasswordFormInterface {
+    userLoggedProfile: Profile | null
+}
 
 type InputsPasswordsProfilePage = {
     password: string
@@ -20,14 +27,15 @@ const schemaValidation = yup.object({
         /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
         "Password must contain at least 8 characters, one uppercase, one number and one special case character"
     ),
-    newPassword: yup.string().required("Please enter your new password").matches(
+    newPassword: yup.string().required("Please enter your password").matches(
         /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
         "Password must contain at least 8 characters, one uppercase, one number and one special case character"
     ),
-    confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords don't match.")
+    confirmNewPassword: yup.string().oneOf([yup.ref('newPassword'), null], "Passwords don't match.")
 }).required();
 
-const PasswordForm = () => {
+const PasswordForm = (props: PasswordFormInterface) => {
+    const {userLoggedProfile} = props
     const [visibility, setVisibility] = useState({
         password: false,
         newPassword: false,
@@ -42,7 +50,15 @@ const PasswordForm = () => {
 
     //Fonction submit click
     const onSubmit: SubmitHandler<InputsPasswordsProfilePage> = (data) => {
-        console.log(data)
+        const jwtToken = localStorage.getItem('HealthTrackerJWT');
+        //TODO Check si l'ancien password enst bon
+        changePassword(String(userLoggedProfile?.user_id), data.confirmNewPassword, jwtToken)
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
     }
 
     //Fonction reset click

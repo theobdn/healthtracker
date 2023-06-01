@@ -23,7 +23,7 @@ const ProfilePage = (props: ProfilePageInterface) => {
                     </Grid>
                     <Grid item lg={12}>
                         <Paper>
-                            <PasswordForm/>
+                            <PasswordForm userLoggedProfile={userLoggedProfile}/>
                         </Paper>
                     </Grid>
                 </Grid>
