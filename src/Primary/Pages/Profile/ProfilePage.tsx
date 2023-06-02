@@ -4,6 +4,7 @@ import PasswordForm from "./PasswordForm";
 import {Grid, Paper} from "@mui/material";
 import {Profile} from "../../../Corelogic/Models/Profile";
 import Container from "@mui/material/Container";
+import GoalForm from './GoalForm';
 
 interface ProfilePageInterface {
     userLoggedProfile: Profile | null
@@ -23,7 +24,12 @@ const ProfilePage = (props: ProfilePageInterface) => {
                     </Grid>
                     <Grid item lg={12}>
                         <Paper>
-                            <PasswordForm/>
+                            <GoalForm userLoggedProfile={userLoggedProfile}/>
+                        </Paper>
+                    </Grid>
+                    <Grid item lg={12}>
+                        <Paper>
+                            <PasswordForm userLoggedProfile={userLoggedProfile}/>
                         </Paper>
                     </Grid>
                 </Grid>

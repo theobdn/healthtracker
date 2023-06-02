@@ -1,10 +1,10 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import counterReducer from '../Slices/counterSlice';
 import profileSlice from '../Slices/profileSlice';
+import goalSlice from '../Slices/goalSlice';
 
 const rootReducer = combineReducers({
-    counter: counterReducer,
-    profile: profileSlice
+    profile: profileSlice,
+    goal: goalSlice
 });
 
 const store = configureStore({

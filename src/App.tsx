@@ -157,7 +157,7 @@ function App() {
                                 <Route path='/stats' element={
                                     <>
                                         <Navbar onThemeChange={setTheme}/>
-                                        <StatsPage/>
+                                        <StatsPage userLoggedProfile={userLogged}/>
                                     </>
                                 }/>
                             </Route>

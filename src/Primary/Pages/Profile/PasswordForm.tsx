@@ -1,13 +1,18 @@
 import React, {useState} from 'react';
-import {Box, Button, Grid, IconButton, InputAdornment, MenuItem, Paper, TextField, Typography} from "@mui/material";
+import {Alert, Box, Button, Grid, IconButton, InputAdornment, MenuItem, Paper, TextField, Typography} from "@mui/material";
 import * as yup from "yup";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {yupResolver} from "@hookform/resolvers/yup";
 import PasswordIcon from '@mui/icons-material/Password';
-import InfoIcon from "@mui/icons-material/Info";
-import {sexeData} from "../../../Secondary/InMemory/data";
+import { changePassword } from '../../../Secondary/Api/AxiosRequests/ProfilRequests';
+import { Profile } from '../../../Corelogic/Models/Profile';
+
+
+interface PasswordFormInterface {
+    userLoggedProfile: Profile | null
+}
 
 type InputsPasswordsProfilePage = {
     password: string
@@ -20,19 +25,22 @@ const schemaValidation = yup.object({
         /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
         "Password must contain at least 8 characters, one uppercase, one number and one special case character"
     ),
-    newPassword: yup.string().required("Please enter your new password").matches(
+    newPassword: yup.string().required("Please enter your password").matches(
         /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
         "Password must contain at least 8 characters, one uppercase, one number and one special case character"
     ),
-    confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Passwords don't match.")
+    confirmNewPassword: yup.string().oneOf([yup.ref('newPassword'), null], "Passwords don't match.")
 }).required();
 
-const PasswordForm = () => {
+const PasswordForm = (props: PasswordFormInterface) => {
+    const {userLoggedProfile} = props
     const [visibility, setVisibility] = useState({
         password: false,
         newPassword: false,
         confirmNewPassword: false
     })
+    const [passworChanged, setPassworChanged] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
 
     const {handleSubmit, reset, formState: {errors}, control} = useForm<InputsPasswordsProfilePage>(
         {
@@ -42,7 +50,19 @@ const PasswordForm = () => {
 
     //Fonction submit click
     const onSubmit: SubmitHandler<InputsPasswordsProfilePage> = (data) => {
-        console.log(data)
+        const jwtToken = localStorage.getItem('HealthTrackerJWT');
+        //TODO Check si l'ancien password enst bon
+        changePassword(String(userLoggedProfile?.user_id), data.confirmNewPassword, jwtToken)
+            .then(function (response) {
+                console.log(response)
+                setPassworChanged(true);
+                setPasswordError(false)
+            })
+            .catch(function (error) {
+                console.log(error);
+                setPasswordError(true)
+                setPassworChanged(false)
+            })
     }
 
     //Fonction reset click
@@ -56,6 +76,14 @@ const PasswordForm = () => {
                 <PasswordIcon/>
                 <Typography marginLeft="5px">Change your password</Typography>
             </Grid>
+            {passworChanged &&
+            <Grid item container justifyContent="center">
+                <Alert severity="success">Password changed</Alert>
+            </Grid>}
+            {passwordError &&
+            <Grid item container justifyContent="center">
+                <Alert severity="error">Can't change password</Alert>
+            </Grid>}
             <Grid item>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Grid container spacing={4} px={2} py={1}>

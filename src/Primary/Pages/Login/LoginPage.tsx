@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import * as yup from "yup";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {Button, Divider, Grid, IconButton, InputAdornment, Paper, TextField, Typography} from "@mui/material";
+import {Alert, Button, Divider, Grid, IconButton, InputAdornment, Paper, TextField, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -33,7 +33,8 @@ const LoginPage = (props: LoginPageInterface) => {
     const {onSubmitClick} = props
     const userLogged = useSelector((state: RootState) => state.profile.user)
     const navigate = useNavigate()
-    const [visibility, setVisibility] = useState<boolean>(false)
+    const [visibility, setVisibility] = useState(false)
+    const [errorLogin, setErrorLogin] = useState(false)
 
     useEffect(() => {
         if (userLogged) {
@@ -52,9 +53,10 @@ const LoginPage = (props: LoginPageInterface) => {
         signIn(data)
             .then(function (response) {
                 onSubmitClick(response.data.jwt)
+                setErrorLogin(false);
             })
             .catch(function (error) {
-                console.log(error)
+                setErrorLogin(true);
             })
     }
 
@@ -87,6 +89,10 @@ const LoginPage = (props: LoginPageInterface) => {
                     <Grid item container justifyContent="center">
                         <Typography variant="h6" sx={{paddingLeft: "10px"}}>Connexion</Typography>
                     </Grid>
+                    {errorLogin && 
+                    <Grid item container justifyContent="center">
+                        <Alert severity="error">Identifiants incorrects</Alert>
+                    </Grid>}
                     <Grid item>
                         <form
                             style={{margin: "10px", display: "flex", flexDirection: "column", alignItems: "center"}}
