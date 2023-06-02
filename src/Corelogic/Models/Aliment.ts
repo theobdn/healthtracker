@@ -15,6 +15,7 @@ export interface Meal {
 }
 
 export interface Aliment {
+    id?: number
     calories: number
     carbohydrates_total_g: number
     cholesterol_mg: number

@@ -1,13 +1,13 @@
 import React from 'react';
-import {Box, IconButton, InputAdornment, TextField} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import {Box, TextField} from "@mui/material";
 
 interface SearchBarInterface {
     onSearchQuery?: (input: string) => void
+    placeholder?: string
 }
 
 const SearchBar = (props: SearchBarInterface) => {
-    const {onSearchQuery} = props
+    const {onSearchQuery, placeholder} = props
 
     const handleChange = (value: string) => {
         if (onSearchQuery) {
@@ -20,7 +20,7 @@ const SearchBar = (props: SearchBarInterface) => {
                 onChange={(e) => handleChange(e.target.value)}
                 label="Enter an aliment name"
                 variant="filled"
-                placeholder="Search..."
+                placeholder={placeholder ? placeholder : "Search..."}
                 size="small"
                 fullWidth
             />
