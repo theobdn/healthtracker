@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Divider, Paper, Typography} from "@mui/material";
 import StatsHeader from "./StatsHeader";
 import {
@@ -19,8 +19,29 @@ import {
 } from "recharts";
 import {data, data01, dataWeightGraph} from "../../../Secondary/InMemory/data";
 import Grid from '@mui/material/Grid';
+import { getMonitorings } from '../../../Secondary/Api/AxiosRequests/MonitoringRequests';
+import { Profile } from '../../../Corelogic/Models/Profile';
+import { Monitoring } from '../../../Corelogic/Models/Monitoring';
 
-const StatsPage = () => {
+interface StatPageInterface {
+    userLoggedProfile: Profile | null
+}
+
+
+const StatsPage = (props: StatPageInterface) => {
+    const {userLoggedProfile} = props
+    const [monitorings, setMonitorings] = useState<Monitoring[]>([])
+    useEffect(() => {
+        if(userLoggedProfile){
+            getMonitorings(String(userLoggedProfile?.user_id))
+                .then(function (response) {
+                    setMonitorings(response.data);      
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+        } 
+    }, [])
     return (
         <>
             <Grid container direction="column">
@@ -30,14 +51,14 @@ const StatsPage = () => {
                 <Grid item container spacing={2} p={3}>
                     <Grid item md={6}>
                         <Paper sx={{height: "400px"}}>
-                            <Typography variant="h4" sx={{paddingLeft: "10px"}}>Stat 1</Typography>
+                            <Typography variant="h4" sx={{paddingLeft: "10px"}}>Weight evolution</Typography>
                             <Divider variant="middle"/>
                             <ResponsiveContainer width="95%" height="90%">
-                                <LineChart data={dataWeightGraph}>
-                                    <Line type="monotone" dataKey="kg" stroke="#8884d8"/>
+                                <LineChart data={monitorings}>
+                                    <Line type="monotone" dataKey="weight" stroke="#8884d8"/>
                                     <CartesianGrid stroke="#ccc"/>
-                                    <XAxis dataKey="name"/>
-                                    <YAxis/>
+                                    <XAxis dataKey="date"/>
+                                    <YAxis />
                                     <Tooltip/>
                                 </LineChart>
                             </ResponsiveContainer>

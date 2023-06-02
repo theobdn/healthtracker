@@ -1,16 +1,14 @@
 import React, {useState} from 'react';
-import {Box, Button, Grid, IconButton, InputAdornment, MenuItem, Paper, TextField, Typography} from "@mui/material";
+import {Alert, Box, Button, Grid, IconButton, InputAdornment, MenuItem, Paper, TextField, Typography} from "@mui/material";
 import * as yup from "yup";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {yupResolver} from "@hookform/resolvers/yup";
 import PasswordIcon from '@mui/icons-material/Password';
-import InfoIcon from "@mui/icons-material/Info";
-import {sexeData} from "../../../Secondary/InMemory/data";
 import { changePassword } from '../../../Secondary/Api/AxiosRequests/ProfilRequests';
 import { Profile } from '../../../Corelogic/Models/Profile';
-import { signIn } from '../../../Secondary/Api/AxiosRequests/AuthLogin';
+
 
 interface PasswordFormInterface {
     userLoggedProfile: Profile | null
@@ -41,6 +39,8 @@ const PasswordForm = (props: PasswordFormInterface) => {
         newPassword: false,
         confirmNewPassword: false
     })
+    const [passworChanged, setPassworChanged] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
 
     const {handleSubmit, reset, formState: {errors}, control} = useForm<InputsPasswordsProfilePage>(
         {
@@ -55,9 +55,13 @@ const PasswordForm = (props: PasswordFormInterface) => {
         changePassword(String(userLoggedProfile?.user_id), data.confirmNewPassword, jwtToken)
             .then(function (response) {
                 console.log(response)
+                setPassworChanged(true);
+                setPasswordError(false)
             })
             .catch(function (error) {
                 console.log(error);
+                setPasswordError(true)
+                setPassworChanged(false)
             })
     }
 
@@ -72,6 +76,14 @@ const PasswordForm = (props: PasswordFormInterface) => {
                 <PasswordIcon/>
                 <Typography marginLeft="5px">Change your password</Typography>
             </Grid>
+            {passworChanged &&
+            <Grid item container justifyContent="center">
+                <Alert severity="success">Password changed</Alert>
+            </Grid>}
+            {passwordError &&
+            <Grid item container justifyContent="center">
+                <Alert severity="error">Can't change password</Alert>
+            </Grid>}
             <Grid item>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Grid container spacing={4} px={2} py={1}>
